@@ -42,7 +42,6 @@ build-docker-image-job:
     - master
   script:
     - docker info
-    - docker build 
     - docker exec ls
 
   artifacts:
