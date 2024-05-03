@@ -19,7 +19,7 @@ build-job:
     - apk --no-cache add openjdk17 maven
     - mvn package
     - mkdir artifacts_jars
-    - mv target/*.jar artifacts_jars/userService.jar
+    - cp target/*.jar artifacts_jars/userService.jar
 
   artifacts:
     expire_in: 2 hrs
@@ -42,7 +42,7 @@ build-docker-image-job:
     - master
   script:
     - docker info
-    - docker exec ls
+    - docker build -t user-service:latest .
 
   artifacts:
     expire_in: 2 hrs
