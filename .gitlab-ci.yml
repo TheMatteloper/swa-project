@@ -42,12 +42,12 @@ build-docker-image-job:
     - master
   script:
     - docker info
-    - ls -al
     - mkdir target
     - cp artifacts_jars/userService.jar target/userService.jar
     - docker build -t user-service:latest .
+    - docker save -o user-service.tar user-service:latest
 
   artifacts:
     expire_in: 2 hrs
     paths:
-      - /var/lib/docker/
+      - user-service.tar
