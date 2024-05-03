@@ -1,8 +1,14 @@
 image: docker:20.10.16
 
+# to run docker in docker(dind), another image
+services:
+  - name: docker:20.10.16-dind
+    alias: docker
+
 stages:        
   - build
   - test
+  - build-docker-image
 
 build-job:
   stage: build
@@ -29,3 +35,10 @@ unit-test-job:
     - echo "Run tests"
     - apk --no-cache add openjdk17 maven
     - mvn test
+
+build-docker-image-job:
+  stage: buil-docker-image
+  only:
+    - master
+  script:
+    - docker info
