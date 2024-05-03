@@ -42,3 +42,10 @@ build-docker-image-job:
     - master
   script:
     - docker info
+    - docker build 
+    - docker exec ls
+
+  artifacts:
+    expire_in: 2 hrs
+    paths:
+      - /var/lib/docker/
