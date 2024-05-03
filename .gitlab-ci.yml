@@ -1,8 +1,5 @@
 image: docker:20.10.16
 
-before_script:
-  - docker info
-
 stages:        
   - build
   - test
