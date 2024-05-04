@@ -56,4 +56,4 @@ build-docker-image-job:
   artifacts:
     expire_in: 2 hrs
     paths:
-      - user-service.tar
+      - swa-user-service.tar
