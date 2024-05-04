@@ -40,7 +40,7 @@ build-docker-image-job:
   stage: build-docker-image
   only:
     - master
-    
+
   before_script:
     - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
 
@@ -50,6 +50,7 @@ build-docker-image-job:
     - cp artifacts_jars/userService.jar target/userService.jar
     - docker build -t swa-user-service:latest .
     - docker save -o swa-user-service.tar swa-user-service:latest
+    - docker images
     - docker push matthewgdocker/swa-user-service:latest
 
   artifacts:
