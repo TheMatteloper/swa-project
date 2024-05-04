@@ -48,8 +48,8 @@ build-docker-image-job:
     - docker info
     - mkdir target
     - cp artifacts_jars/userService.jar target/userService.jar
-    - docker build -t swa-user-service:latest .
-    - docker save -o swa-user-service.tar swa-user-service:latest
+    - docker build -t matthewgdocker/swa-user-service:latest .
+    - docker save -o swa-user-service.tar matthewgdocker/swa-user-service:latest
     - docker images
     - docker push matthewgdocker/swa-user-service:latest
 
