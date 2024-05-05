@@ -11,7 +11,7 @@ services:
     ports:
       - "8234:8234"
     healthcheck:
-      test: "curl --fail --silent localhost:8234/actuator/health | grep UP || exit 1"
+      test: "curl localhost:8234/actuator/health | grep UP || exit 1"
       interval: 30s
       timeout: 5s
       retries: 2
@@ -23,7 +23,7 @@ services:
     ports:
       - "8761:8761"
     healthcheck:
-      test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
+      test: "curl localhost:8761/actuator/health | grep UP || exit 1"
       interval: 30s
       timeout: 5s
       retries: 2
