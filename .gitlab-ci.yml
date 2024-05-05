@@ -15,8 +15,6 @@ run-integration-tests-job:
     - apk --no-cache add openjdk17 maven
     - docker-compose up --build -d
     - echo "Waiting until containers fully run"
-    - while [ "`docker inspect -f '{{.State.Health.Status}}' service-discovery`" != "healthy" ]; do sleep 1; done
-    - echo "service-discovery started"
-    - while [ "`docker inspect -f '{{.State.Health.Status}}' user-service`" != "healthy" ]; do sleep 1; done
+    - slepp 1m
     - cd integration-tests
     - mvn test
