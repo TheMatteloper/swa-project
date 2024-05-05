@@ -40,14 +40,20 @@ build-docker-image-job:
   stage: build-docker-image
   only:
     - master
+
+  before_script:
+    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+
   script:
     - docker info
     - mkdir target
     - cp artifacts_jars/userService.jar target/userService.jar
-    - docker build -t user-service:latest .
-    - docker save -o user-service.tar user-service:latest
+    - docker build -t matthewgdocker/swa-user-service:latest .
+    - docker save -o swa-user-service.tar matthewgdocker/swa-user-service:latest
+    - docker images
+    - docker push matthewgdocker/swa-user-service:latest
 
   artifacts:
     expire_in: 2 hrs
     paths:
-      - user-service.tar
+      - swa-user-service.tar
