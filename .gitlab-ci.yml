@@ -15,6 +15,6 @@ run-integration-tests-job:
     - apk --no-cache add openjdk17 maven
     - docker-compose up --build -d
     - echo "Waiting until containers fully run"
-    - slepp 1m
+    - sleep 1m
     - cd integration-tests
     - mvn test
