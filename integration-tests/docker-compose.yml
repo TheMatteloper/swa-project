@@ -1,0 +1,30 @@
+version: '2.3'
+
+services:
+  user-service:
+    container_name: "user-service"
+    image: "matthewgdocker/swa-user-service:latest"
+    depends_on:
+      - service-discovery
+    environment:
+      - EUREKA_URI=http://service-discovery:8761/eureka/
+    ports:
+      - "8234:8234"
+    healthcheck:
+      test: "curl --fail --silent localhost:8234/actuator/health | grep UP || exit 1"
+      interval: 30s
+      timeout: 5s
+      retries: 2
+      start_period: 45s
+
+  service-discovery:
+    container_name: "service-discovery"
+    image: "matthewgdocker/swa-service-discovery:latest"
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
+      interval: 30s
+      timeout: 5s
+      retries: 2
+      start_period: 45s

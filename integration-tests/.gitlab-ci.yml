@@ -1,0 +1,21 @@
+image: docker:20.10.16
+
+services:
+  - docker:20.10.16-dind
+
+stages:
+  - integration-tests
+
+run-integration-tests-job:
+  stage: integration-tests
+  only:
+    - master
+  script:
+    - echo "Runnig integration tests"
+    - apk --no-cache add openjdk17 maven
+    - docker-compose up --build -d
+    - echo "Waiting until containers fully run"
+    - while [ "`docker inspect -f '{{.State.Health.Status}}' user-service`" != "healthy" ]; do sleep 1; done
+    - while [ "`docker inspect -f '{{.State.Health.Status}}' service-discovery`" != "healthy" ]; do sleep 1; done
+    - cd integration-tests
+    - mvn test
