@@ -1,0 +1,49 @@
+image: docker:20.10.16
+
+# to run docker in docker(dind), another image
+services:
+  - name: docker:20.10.16-dind
+    alias: docker
+
+stages:        
+  - build
+  - build-docker-image
+
+build-job:
+  stage: build
+  only:
+    - master
+  script:
+    - echo "Building app with maven, result is jar"
+    - apk --no-cache add openjdk17 maven
+    - mvn package
+    - mkdir artifacts_jars
+    - cp target/*.jar artifacts_jars/serviceDiscovery.jar
+
+  artifacts:
+    expire_in: 2 hrs
+    paths:
+      - artifacts_jars
+
+build-docker-image-job:
+  stage: build-docker-image
+  only:
+    - master
+
+  before_script:
+    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+
+  script:
+    - docker info
+    - mkdir target
+    - cp artifacts_jars/serviceDiscovery.jar target/serviceDiscovery.jar
+    - docker build -t matthewgdocker/swa-service-discovery:latest .
+    - docker save -o swa-service-discovery.tar matthewgdocker/swa-service-discovery:latest
+    - docker images
+    - docker push matthewgdocker/swa-service-discovery:latest
+
+  artifacts:
+    expire_in: 2 hrs
+    paths:
+      - swa-service-discovery.tar
+
