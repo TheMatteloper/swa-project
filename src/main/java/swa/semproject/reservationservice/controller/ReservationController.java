@@ -1,11 +1,53 @@
 package swa.semproject.reservationservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.service.ReservationService;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/reservation")
 public class ReservationController {
+
+    private final ReservationService reservationService;
+    private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
+
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+    @GetMapping(value = "/my-reservations")
+    public ResponseEntity<List<Reservation>> getCities() {  // TODO change to reservation dto
+        logger.info("GET request - reservation/my-reservations");
+        return ResponseEntity.ok(reservationService.getAllOwnedReservations());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Integer reservationId) {
+        logger.info("GET request - reservation/{id}");
+        return ResponseEntity.ok(reservationService.getReservationById(reservationId));
+    }
+
+    @PostMapping(value = "/new")
+    public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) {
+        logger.info("POST request - reservation/new");
+
+        reservationService.createReservation(reservation);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping (value = "/{id}")
+    public ResponseEntity<Void> cancelReservation(@PathVariable("id") Integer reservationId) {
+        logger.info("DELETE request - reservation/{id}");
+        reservationService.cancelReservation(reservationId);
+        return ResponseEntity.ok(null);
+    }
+
 
 }
