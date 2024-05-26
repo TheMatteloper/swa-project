@@ -37,9 +37,7 @@ public class ReservationController {
     @PostMapping(value = "/new")
     public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) {
         logger.info("POST request - reservation/new");
-
         reservationService.createReservation(reservation);
-
         return ResponseEntity.ok(null);
     }
 
