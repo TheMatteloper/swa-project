@@ -3,6 +3,7 @@ package swa.semproject.reservationservice.model;
 //import swa.semproject.reservationservice.enums.ReservationStatus;
 
 import lombok.*;
+import swa.semproject.reservationservice.enums.ReservationStatus;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,19 +14,16 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Reservation {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     private Integer userId;
+
+    private Integer roomId;
 
     private Date date;
 
@@ -35,8 +33,8 @@ public class Reservation {
 
     private Time timeTo;
 
-    //@Enumerated
-    //private ReservationStatus status;
+    @Enumerated
+    private ReservationStatus status;
 
     //private int durationInHours;
 

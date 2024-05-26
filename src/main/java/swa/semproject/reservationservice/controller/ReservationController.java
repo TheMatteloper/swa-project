@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.service.ReservationService;
 
-import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -22,7 +23,7 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/my-reservations")
-    public ResponseEntity<List<Reservation>> getCities() {  // TODO change to reservation dto
+    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations() {  // TODO change to reservation dto
         logger.info("GET request - reservation/my-reservations");
         return ResponseEntity.ok(reservationService.getAllOwnedReservations());
     }
