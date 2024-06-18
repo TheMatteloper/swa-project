@@ -21,4 +21,6 @@ public class UserResponseDTO {
 
     private Integer tel;
 
+    public  UserResponseDTO() {}
+
 }
