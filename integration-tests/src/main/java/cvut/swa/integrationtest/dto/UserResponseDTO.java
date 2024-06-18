@@ -21,6 +21,7 @@ public class UserResponseDTO {
 
     private Integer tel;
 
+    // FIX for fasterJackson serialization
     public  UserResponseDTO() {}
 
 }
