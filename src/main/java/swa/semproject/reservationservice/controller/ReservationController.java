@@ -4,10 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.service.ReservationService;
 
+import java.net.URI;
 import java.util.Set;
 
 
@@ -23,7 +25,7 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/my-reservations")
-    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations() {  // TODO change to reservation dto
+    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations() {
         logger.info("GET request - reservation/my-reservations");
         return ResponseEntity.ok(reservationService.getAllOwnedReservations());
     }
@@ -35,17 +37,23 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/new")
-    public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) throws Exception {
         logger.info("POST request - reservation/new");
         reservationService.createReservation(reservation);
-        return ResponseEntity.ok(null);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(reservation.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping (value = "/{id}")
     public ResponseEntity<Void> cancelReservation(@PathVariable("id") Integer reservationId) {
         logger.info("DELETE request - reservation/{id}");
         reservationService.cancelReservation(reservationId);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
 

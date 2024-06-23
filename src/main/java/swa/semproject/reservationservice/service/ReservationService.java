@@ -8,8 +8,8 @@ import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.repository.ReservationRepository;
-//import events.ReservationCreated;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,17 +44,21 @@ public class ReservationService {
         return result;
     }
 
-    public boolean createReservation(Reservation reservation) {
+    public boolean createReservation(Reservation reservation) throws Exception {
 
-        /*ReservationCreated event = new ReservationCreated(
-                reservation.getUserId(),
-                reservation.getId(),
-                reservation.getTotalPrice()
-        );*/
+        //TODO check available rooms?
 
-        //TODO check if available?
+        if (reservation.getRoomId() == null ||
+                reservation.getTimeFrom() == null ||
+                reservation.getTimeTo() == null ||
+                reservation.getDate() == null ||
+                reservation.getDate().isBefore(LocalDate.now())) {
+            logger.info("Reservation could not be created - invalid data");
+            throw new Exception("Invalid reservation data");
+        }
+        reservation.setId(null);
+
         repo.save(reservation);
-
         logger.info(String.format("Reservation for room id %s created", reservation.getRoomId()));
 
         return true;
@@ -66,7 +70,6 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.CANCELLED);
 
         repo.save(reservation);
-
         logger.info(String.format("Reservation id %s cancelled", reservationId));
 
         return true;

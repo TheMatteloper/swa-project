@@ -1,7 +1,5 @@
 package swa.semproject.reservationservice.model;
 
-//import swa.semproject.reservationservice.enums.ReservationStatus;
-
 import lombok.*;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 
@@ -10,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,7 +23,7 @@ public class Reservation {
 
     private Integer roomId;
 
-    private Date date;
+    private LocalDate date;
 
     private int totalPrice;
 
@@ -35,8 +33,6 @@ public class Reservation {
 
     @Enumerated
     private ReservationStatus status;
-
-    //private int durationInHours;
 
 }
 
