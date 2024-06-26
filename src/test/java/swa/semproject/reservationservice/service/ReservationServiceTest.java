@@ -10,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.environment.Generator;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +31,25 @@ class ReservationServiceTest {
 
     @Test
     void getAllOwnedReservations() {
+        Integer userId = 1;
+        Set<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
+        Set<Integer> reservationIds = new HashSet<>();
+        for (Reservation reservation : reservations) {
+            em.persist(reservation);
+            reservationIds.add(reservation.getId());
+        }
+
+        Set<ReservationViewDTO> result = sut.getAllOwnedReservations(userId);
+
+        Set<Integer> resultIds = new HashSet<>();
+        for (ReservationViewDTO view : result) {
+            resultIds.add(view.getId());
+        }
+        Assert.assertEquals(reservationIds, resultIds);
+
+        for (Reservation reservation : reservations) {
+            em.remove(reservation);
+        }
     }
 
     @Test

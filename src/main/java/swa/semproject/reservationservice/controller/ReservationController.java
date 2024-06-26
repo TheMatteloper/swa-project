@@ -24,10 +24,10 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping(value = "/my-reservations")
-    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations() {
-        logger.info("GET request - reservation/my-reservations");
-        return ResponseEntity.ok(reservationService.getAllOwnedReservations());
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations(@PathVariable("id") Integer userId) {
+        logger.info("GET request - reservation/user/{id}");
+        return ResponseEntity.ok(reservationService.getAllOwnedReservations(userId));
     }
 
     @GetMapping(value = "/{id}")

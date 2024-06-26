@@ -25,8 +25,7 @@ public class ReservationService {
         this.repo = repo;
     }
 
-    public Set<ReservationViewDTO> getAllOwnedReservations() {
-        Integer userId = 1; //TODO get user ID
+    public Set<ReservationViewDTO> getAllOwnedReservations(Integer userId) {
         return repo.findAllByUserId(userId);
     }
 
@@ -36,30 +35,26 @@ public class ReservationService {
         if (reservation.isEmpty()) throw new IllegalArgumentException(String.format("Reservation id %s does not exist",
                 reservationId));
 
-        Integer userId = 1; //TODO get user ID
-        Reservation result = reservation.get();
-        if (!result.getUserId().equals(userId)) throw new IllegalArgumentException(String.format("Reservation id %s " +
-                        "does not belong to this user", reservationId));
-
-        return result;
+        return reservation.get();
     }
 
     public boolean createReservation(Reservation reservation) throws Exception {
 
         //TODO check available rooms?
 
-        if (reservation.getRoomId() == null ||
+        if (reservation.getUserId() == null ||
+                reservation.getRoomId() == null ||
                 reservation.getTimeFrom() == null ||
                 reservation.getTimeTo() == null ||
                 reservation.getDate() == null ||
                 reservation.getDate().isBefore(LocalDate.now())) {
-            logger.info("Reservation could not be created - invalid data");
+            logger.warn("Reservation could not be created - invalid data");
             throw new Exception("Invalid reservation data");
         }
         reservation.setId(null);
 
         repo.save(reservation);
-        logger.info(String.format("Reservation for room id %s created", reservation.getRoomId()));
+        logger.info(String.format("Reservation id %s created", reservation.getId()));
 
         return true;
     }

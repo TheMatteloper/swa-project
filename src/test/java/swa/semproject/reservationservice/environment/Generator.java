@@ -7,7 +7,7 @@ import swa.semproject.reservationservice.model.Reservation;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Random;
+import java.util.*;
 
 public class Generator {
 
@@ -48,6 +48,16 @@ public class Generator {
         reservation.setStatus(ReservationStatus.UNPAID);
 
         return reservation;
+    }
+
+    public static Set<Reservation> generateListOfReservationsForUser(Integer userId) {
+        Set<Reservation> reservations = new HashSet<>();
+
+        for (int i=0; i<RAND.nextInt(1,10); i++) {
+            reservations.add(generateReservationForUser(userId));
+        }
+
+        return reservations;
     }
 
 }
