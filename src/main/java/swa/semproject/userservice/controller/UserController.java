@@ -8,11 +8,23 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import swa.semproject.userservice.dto.UserResponseDTO;
+import swa.semproject.userservice.mapper.UserMapper;
+import swa.semproject.userservice.service.UserService;
 
 
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
+
+    private final UserService userService;
+
+    private final UserMapper userMapper;
+
+    public UserController(UserService userService, UserMapper userMapper) {
+        this.userService = userService;
+        this.userMapper = userMapper;
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ApiResponses(value = {
@@ -20,9 +32,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
     })
-    public UserResponseDTO getUser(@PathVariable String id) {
+    public UserResponseDTO getUser(@PathVariable Integer id) {
         try {
-            return new UserResponseDTO(1, "user", "John", "Doe", "mail@g.com", 1234456);
+            return userMapper.convertToDto(userService.getUserById(id));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
