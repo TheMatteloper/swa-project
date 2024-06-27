@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.environment.Generator;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 
 import javax.persistence.EntityManager;
@@ -67,9 +68,9 @@ class ReservationServiceTest {
     void createReservation() throws Exception {
         final Reservation reservation = Generator.generateReservationForUser(1);
 
-        sut.createReservation(reservation);
+        Integer resId = sut.createReservation(new ReservationRequestDTO(reservation));
 
-        final Reservation result = sut.getReservationById(reservation.getId());
+        final Reservation result = sut.getReservationById(resId);
         Assert.assertEquals(reservation, result);
         em.remove(result);
     }

@@ -2,6 +2,7 @@ package swa.semproject.reservationservice.model;
 
 import lombok.*;
 import swa.semproject.reservationservice.enums.ReservationStatus;
+import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,8 +18,8 @@ import java.util.Objects;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
     private Integer userId;
 
@@ -32,6 +33,18 @@ public class Reservation {
 
     @Enumerated
     private ReservationStatus status;
+
+    public Reservation() {}
+
+    public Reservation(ReservationRequestDTO r) {
+        this.id = null;
+        this.userId = r.getUserId();
+        this.roomId = r.getRoomId();
+        this.date = r.getDate();
+        this.timeFrom = r.getTimeFrom();
+        this.timeTo = r.getTimeTo();
+        this.status = r.getStatus();
+    }
 
     @Override
     public boolean equals(Object o) {

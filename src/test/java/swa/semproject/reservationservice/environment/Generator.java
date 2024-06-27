@@ -1,10 +1,9 @@
 package swa.semproject.reservationservice.environment;
 
-import org.joda.time.DateTime;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -48,6 +47,11 @@ public class Generator {
         reservation.setStatus(ReservationStatus.UNPAID);
 
         return reservation;
+    }
+
+    public static ReservationRequestDTO generateReservationRequestDTOForUser(Integer userId) {
+        final Reservation reservation = generateReservationForUser(userId);
+        return new ReservationRequestDTO(reservation);
     }
 
     public static Set<Reservation> generateListOfReservationsForUser(Integer userId) {

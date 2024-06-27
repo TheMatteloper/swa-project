@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
+import swa.semproject.reservationservice.model.dto.ReservationResponseDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.repository.ReservationRepository;
 
@@ -29,6 +31,7 @@ public class ReservationService {
         return repo.findAllByUserId(userId);
     }
 
+
     public Reservation getReservationById(Integer reservationId) {
         Optional<Reservation> reservation = repo.getReservationById(reservationId);
 
@@ -38,25 +41,34 @@ public class ReservationService {
         return reservation.get();
     }
 
-    public boolean createReservation(Reservation reservation) throws Exception {
+    public ReservationResponseDTO getReservationDTOById(Integer reservationId) {
+        return new ReservationResponseDTO(getReservationById(reservationId));
+    }
+
+    public Integer createReservation(ReservationRequestDTO reservationRequestDTO) throws Exception {
 
         //TODO check available rooms?
 
-        if (reservation.getUserId() == null ||
-                reservation.getRoomId() == null ||
-                reservation.getTimeFrom() == null ||
-                reservation.getTimeTo() == null ||
-                reservation.getDate() == null ||
-                reservation.getDate().isBefore(LocalDate.now())) {
+        if (reservationRequestDTO.getUserId() == null ||
+                reservationRequestDTO.getRoomId() == null ||
+                reservationRequestDTO.getTimeFrom() == null ||
+                reservationRequestDTO.getTimeTo() == null ||
+                reservationRequestDTO.getDate() == null ||
+                reservationRequestDTO.getDate().isBefore(LocalDate.now())) {
             logger.warn("Reservation could not be created - invalid data");
             throw new Exception("Invalid reservation data");
         }
-        reservation.setId(null);
+
+        // TODO check if user exists
+
+        Reservation reservation = new Reservation(reservationRequestDTO);
 
         repo.save(reservation);
         logger.info(String.format("Reservation id %s created", reservation.getId()));
 
-        return true;
+        // TODO call mail service
+
+        return reservation.getId();
     }
 
     public boolean cancelReservation(Integer reservationId) {

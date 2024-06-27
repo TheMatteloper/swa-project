@@ -3,8 +3,7 @@ package swa.semproject.reservationservice.model.dto;
 import lombok.Data;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 
-import javax.persistence.Enumerated;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 public class ReservationViewDTO {
@@ -13,9 +12,8 @@ public class ReservationViewDTO {
 
     private Integer roomId;
 
-    private Date date;
+    private LocalDate date;
 
-    @Enumerated
     private ReservationStatus status;
 
 }

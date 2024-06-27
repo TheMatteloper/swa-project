@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import swa.semproject.reservationservice.model.Reservation;
+import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
+import swa.semproject.reservationservice.model.dto.ReservationResponseDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.service.ReservationService;
 
@@ -31,19 +33,19 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Integer reservationId) {
+    public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("id") Integer reservationId) {
         logger.info("GET request - reservation/{id}");
-        return ResponseEntity.ok(reservationService.getReservationById(reservationId));
+        return ResponseEntity.ok(reservationService.getReservationDTOById(reservationId));
     }
 
     @PostMapping(value = "/new")
-    public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) throws Exception {
+    public ResponseEntity<Void> createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) throws Exception {
         logger.info("POST request - reservation/new");
-        reservationService.createReservation(reservation);
+        Integer resId = reservationService.createReservation(reservationRequestDTO);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(reservation.getId())
+                .buildAndExpand(resId)
                 .toUri();
 
         return ResponseEntity.created(location).build();
