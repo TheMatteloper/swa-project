@@ -1,4 +1,4 @@
-package swa.semproject.userservice.dto;
+package swa.semproject.userservice.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

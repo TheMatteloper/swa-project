@@ -1,5 +1,6 @@
 package swa.semproject.userservice.controller;
 
+import feign.Body;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -7,7 +8,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-import swa.semproject.userservice.dto.UserResponseDTO;
+import swa.semproject.userservice.dto.request.UserRequestDTO;
+import swa.semproject.userservice.dto.response.UserResponseDTO;
 import swa.semproject.userservice.mapper.UserMapper;
 import swa.semproject.userservice.service.UserService;
 
@@ -38,6 +40,24 @@ public class UserController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User successfully created"),
+            @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
+    })
+    public void createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        userService.createUser(userMapper.convertToEntity(userRequestDTO));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User successfully deleted or not existing"),
+            @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
+    })
+    public void deleteUser(@PathVariable Integer id) {
+        userService.deleteUserById(id);
     }
 
 }
