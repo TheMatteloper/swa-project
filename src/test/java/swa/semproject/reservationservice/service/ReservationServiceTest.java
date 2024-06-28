@@ -1,10 +1,15 @@
 package swa.semproject.reservationservice.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.enums.ReservationStatus;
@@ -13,12 +18,12 @@ import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @Transactional
 class ReservationServiceTest {
@@ -33,20 +38,20 @@ class ReservationServiceTest {
     @Test
     void getAllOwnedReservations() {
         Integer userId = 1;
-        Set<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
+        List<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
         Set<Integer> reservationIds = new HashSet<>();
         for (Reservation reservation : reservations) {
             em.persist(reservation);
             reservationIds.add(reservation.getId());
         }
 
-        Set<ReservationViewDTO> result = sut.getAllOwnedReservations(userId);
+        List<ReservationViewDTO> result = sut.getAllOwnedReservations(userId);
 
         Set<Integer> resultIds = new HashSet<>();
         for (ReservationViewDTO view : result) {
             resultIds.add(view.getId());
         }
-        Assert.assertEquals(reservationIds, resultIds);
+        Assertions.assertEquals(reservationIds, resultIds);
 
         for (Reservation reservation : reservations) {
             em.remove(reservation);
@@ -60,7 +65,7 @@ class ReservationServiceTest {
 
         final Reservation result = sut.getReservationById(reservation.getId());
 
-        Assert.assertEquals(reservation, result);
+        Assertions.assertEquals(reservation, result);
         em.remove(result);
     }
 
@@ -71,7 +76,8 @@ class ReservationServiceTest {
         Integer resId = sut.createReservation(new ReservationRequestDTO(reservation));
 
         final Reservation result = sut.getReservationById(resId);
-        Assert.assertEquals(reservation, result);
+        reservation.setId(resId);
+        Assertions.assertEquals(reservation, result);
         em.remove(result);
     }
 
@@ -83,7 +89,7 @@ class ReservationServiceTest {
         sut.cancelReservation(reservation.getId());
 
         final Reservation result = sut.getReservationById(reservation.getId());
-        Assert.assertEquals(ReservationStatus.CANCELLED, result.getStatus());
+        Assertions.assertEquals(ReservationStatus.CANCELLED, result.getStatus());
         em.remove(result);
     }
 }

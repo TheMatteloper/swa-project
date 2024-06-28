@@ -54,8 +54,8 @@ public class Generator {
         return new ReservationRequestDTO(reservation);
     }
 
-    public static Set<Reservation> generateListOfReservationsForUser(Integer userId) {
-        Set<Reservation> reservations = new HashSet<>();
+    public static List<Reservation> generateListOfReservationsForUser(Integer userId) {
+        List<Reservation> reservations = new ArrayList<>();
 
         for (int i=0; i<RAND.nextInt(1,10); i++) {
             reservations.add(generateReservationForUser(userId));

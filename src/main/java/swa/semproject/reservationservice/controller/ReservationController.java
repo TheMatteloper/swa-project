@@ -12,6 +12,7 @@ import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.service.ReservationService;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 
 
@@ -27,7 +28,7 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<Set<ReservationViewDTO>> getOwnedReservations(@PathVariable("id") Integer userId) {
+    public ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("id") Integer userId) {
         logger.info("GET request - reservation/user/{id}");
         return ResponseEntity.ok(reservationService.getAllOwnedReservations(userId));
     }

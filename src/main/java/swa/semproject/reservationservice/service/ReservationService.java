@@ -12,6 +12,7 @@ import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.repository.ReservationRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class ReservationService {
         this.repo = repo;
     }
 
-    public Set<ReservationViewDTO> getAllOwnedReservations(Integer userId) {
+    public List<ReservationViewDTO> getAllOwnedReservations(Integer userId) {
         return repo.findAllByUserId(userId);
     }
 

@@ -1,20 +1,17 @@
 package swa.semproject.reservationservice.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Reservation {
 
     @Id
