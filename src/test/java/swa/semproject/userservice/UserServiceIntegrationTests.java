@@ -7,19 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import swa.semproject.userservice.model.User;
 import swa.semproject.userservice.service.UserService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserServiceApplicationTests {
+class UserServiceIntegrationTests {
 
 	@Autowired
 	private UserService userService;
 
-	public User generateRandomUser() {
+	public static User generateRandomUser() {
 		User user = new User();
 		user.setName("John");
 		user.setLogin(generateRandomString()); // has to be unique
@@ -30,7 +29,7 @@ class UserServiceApplicationTests {
 		return user;
 	}
 
-	public String generateRandomString(){
+	public static String generateRandomString(){
 		return RandomStringUtils.randomAlphanumeric(10);
 	}
 
