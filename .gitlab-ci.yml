@@ -30,7 +30,7 @@ build-job:
 unit-test-job:
   stage: test
   only:
-    - master
+    - main
   script:
     - echo "Run tests"
     - apk --no-cache add openjdk17 maven
@@ -39,7 +39,7 @@ unit-test-job:
 build-docker-image-job:
   stage: build-docker-image
   only:
-    - master
+    - main
 
   before_script:
     - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
