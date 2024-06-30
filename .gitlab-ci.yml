@@ -13,7 +13,7 @@ stages:
 build-job:
   stage: build
   only:
-    - master
+    - main
   script:
     - echo "Building app with maven, result is jar"
     - apk --no-cache add openjdk17 maven
