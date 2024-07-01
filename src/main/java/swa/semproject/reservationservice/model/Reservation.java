@@ -12,23 +12,30 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Table(name = "Reservations")
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @Column(name = "userId")
     private Integer userId;
 
+    @Column(name = "roomId")
     private Integer roomId;
 
+    @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "timeFrom")
     private LocalTime timeFrom;
 
+    @Column(name = "timeTo")
     private LocalTime timeTo;
 
     @Enumerated
+    @Column(name = "status")
     private ReservationStatus status;
 
     public Reservation() {}

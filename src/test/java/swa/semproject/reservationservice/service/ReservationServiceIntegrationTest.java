@@ -28,28 +28,30 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional
-class ReservationServiceTest {
+class ReservationServiceIntegrationTest {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Mock
+    private UserServiceClient userServiceClient;
 
     @InjectMocks
     @Autowired
     private ReservationService sut;
 
-    @Mock
-    private UserServiceClient userServiceClient;
-
     @BeforeEach
     void initTest() {
         MockitoAnnotations.openMocks(this);
 
-        when(userServiceClient.getUser(1)).thenReturn(new UserResponseDTO(1));
+        Integer userId = 1;
+        when(userServiceClient.getUser(userId)).thenReturn(new UserResponseDTO(userId));
     }
 
 
     @Test
     void getAllOwnedReservations() throws Exception {
+        // Arrange
         Integer userId = 1;
         List<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
         Set<Integer> reservationIds = new HashSet<>();
@@ -58,12 +60,14 @@ class ReservationServiceTest {
             reservationIds.add(reservation.getId());
         }
 
+        // Act
         List<ReservationViewDTO> result = sut.getAllOwnedReservations(userId);
 
         Set<Integer> resultIds = new HashSet<>();
         for (ReservationViewDTO view : result) {
             resultIds.add(view.getId());
         }
+        // Assert
         Assertions.assertEquals(reservationIds, resultIds);
 
         for (Reservation reservation : reservations) {
@@ -73,36 +77,45 @@ class ReservationServiceTest {
 
     @Test
     void getReservationById() {
+        // Arrange
         final Reservation reservation = Generator.generateReservationForUser(1);
         em.persist(reservation);
 
+        // Act
         final Reservation result = sut.getReservationById(reservation.getId());
 
+        // Assert
         Assertions.assertEquals(reservation, result);
         em.remove(result);
     }
 
     @Test
     void createReservation() throws Exception {
+        // Arrange
         Integer userId = 1;
         final Reservation reservation = Generator.generateReservationForUser(userId);
 
+        // Act
         Integer resId = sut.createReservation(new ReservationRequestDTO(reservation));
 
         final Reservation result = sut.getReservationById(resId);
         reservation.setId(resId);
+        // Assert
         Assertions.assertEquals(reservation, result);
         em.remove(result);
     }
 
     @Test
     void cancelReservation() {
+        // Arrange
         final Reservation reservation = Generator.generateUnpaidReservationForUser(1);
         em.persist(reservation);
 
+        // Act
         sut.cancelReservation(reservation.getId());
 
         final Reservation result = sut.getReservationById(reservation.getId());
+        // Assert
         Assertions.assertEquals(ReservationStatus.CANCELLED, result.getStatus());
         em.remove(result);
     }

@@ -17,12 +17,14 @@ public class ReservationViewDTO {
 
     private ReservationStatus status;
 
+
     public ReservationViewDTO(Integer id, Integer roomId, LocalDate date, ReservationStatus status) {
         this.id = id;
         this.roomId = roomId;
         this.date = date;
         this.status = status;
     }
+
 
     @Override
     public boolean equals(Object o) {

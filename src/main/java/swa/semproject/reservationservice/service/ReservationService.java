@@ -23,16 +23,12 @@ public class ReservationService {
 
     private final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
-    private final ReservationRepository repo;
+    private ReservationRepository repo;
 
     private UserServiceClient userServiceClient;
 
     public ReservationService(ReservationRepository repo, UserServiceClient userServiceClient) {
         this.repo = repo;
-        this.userServiceClient = userServiceClient;
-    }
-
-    public void setUserServiceClient(UserServiceClient userServiceClient) {
         this.userServiceClient = userServiceClient;
     }
 
@@ -102,14 +98,20 @@ public class ReservationService {
         return reservation.getId();
     }
 
-    public boolean cancelReservation(Integer reservationId) {
+    public void cancelReservation(Integer reservationId) {
         Reservation reservation = getReservationById(reservationId);
 
         reservation.setStatus(ReservationStatus.CANCELLED);
 
         repo.save(reservation);
         logger.info(String.format("Reservation id %s cancelled", reservationId));
+    }
 
-        return true;
+    public void setUserServiceClient(UserServiceClient userServiceClient) {
+        this.userServiceClient = userServiceClient;
+    }
+
+    public void setRepo(ReservationRepository repo) {
+        this.repo = repo;
     }
 }
