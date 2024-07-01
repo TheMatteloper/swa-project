@@ -2,10 +2,12 @@ package swa.semproject.userservice.service;
 
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.userservice.model.User;
 import swa.semproject.userservice.repository.UserRepository;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
