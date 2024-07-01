@@ -1,8 +1,6 @@
 package swa.semproject.reservationservice.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,18 +18,17 @@ import swa.semproject.reservationservice.repository.ReservationRepository;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Transactional
 class ReservationServiceUnitTest {
 
     @Mock
-    private ReservationRepository repo;
+    private static ReservationRepository repo;
 
     @Mock
-    private UserServiceClient userServiceClient;
+    private static UserServiceClient userServiceClient;
 
     @InjectMocks
     @Autowired
@@ -43,6 +40,12 @@ class ReservationServiceUnitTest {
 
         Integer userId = 1;
         when(userServiceClient.getUser(userId)).thenReturn(new UserResponseDTO(userId));
+    }
+
+    @AfterEach
+    void resetMocks() {
+        reset(repo);
+        reset(userServiceClient);
     }
 
     @Test
