@@ -43,11 +43,13 @@ class ReservationServiceTest {
     @BeforeEach
     void initTest() {
         MockitoAnnotations.openMocks(this);
+
+        when(userServiceClient.getUser(1)).thenReturn(new UserResponseDTO(1));
     }
 
 
     @Test
-    void getAllOwnedReservations() {
+    void getAllOwnedReservations() throws Exception {
         Integer userId = 1;
         List<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
         Set<Integer> reservationIds = new HashSet<>();
@@ -83,8 +85,6 @@ class ReservationServiceTest {
     @Test
     void createReservation() throws Exception {
         Integer userId = 1;
-        when(userServiceClient.getUser(userId)).thenReturn(new UserResponseDTO(userId));
-
         final Reservation reservation = Generator.generateReservationForUser(userId);
 
         Integer resId = sut.createReservation(new ReservationRequestDTO(reservation));

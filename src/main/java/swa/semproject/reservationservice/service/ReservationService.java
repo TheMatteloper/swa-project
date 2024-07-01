@@ -36,7 +36,19 @@ public class ReservationService {
         this.userServiceClient = userServiceClient;
     }
 
-    public List<ReservationViewDTO> getAllOwnedReservations(Integer userId) {
+    public void checkIfUserExists(Integer userId) throws Exception {
+        UserResponseDTO user = userServiceClient.getUser(userId);
+
+        if (!user.getId().equals(userId)) {
+            logger.warn("Request failed - user not found");
+            throw new Exception("Invalid user data");
+        }
+    }
+
+    public List<ReservationViewDTO> getAllOwnedReservations(Integer userId) throws Exception {
+
+        checkIfUserExists(userId);
+
         return repo.findAllByUserId(userId);
     }
 
@@ -50,8 +62,19 @@ public class ReservationService {
         return reservation.get();
     }
 
-    public ReservationResponseDTO getReservationDTOById(Integer reservationId) {
-        return new ReservationResponseDTO(getReservationById(reservationId));
+    public ReservationResponseDTO getReservationDTOById(Integer reservationId, Integer userId) throws Exception {
+
+        checkIfUserExists(userId);
+
+        ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO(getReservationById(reservationId));
+
+        if (!userId.equals(reservationResponseDTO.getUserId())) {
+            logger.warn(String.format("Reservation could not be returned - userId %s does not match %s", userId,
+                    reservationResponseDTO.getUserId()));
+            throw new Exception("Invalid request data");
+        }
+
+        return reservationResponseDTO;
     }
 
     public Integer createReservation(ReservationRequestDTO reservationRequestDTO) throws Exception {
@@ -66,13 +89,8 @@ public class ReservationService {
             throw new Exception("Invalid reservation data");
         }
 
-        //check whether user exists
-        Integer userId = reservationRequestDTO.getUserId();
-        UserResponseDTO user = userServiceClient.getUser(userId);
-        if (!user.getId().equals(userId)) {
-            logger.warn("Reservation could not be created - user not found");
-            throw new Exception("Invalid user data");
-        }
+        // check user existence
+        checkIfUserExists(reservationRequestDTO.getUserId());
 
         Reservation reservation = new Reservation(reservationRequestDTO);
 

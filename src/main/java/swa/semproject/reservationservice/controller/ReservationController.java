@@ -27,16 +27,17 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping(value = "/user/{id}")
-    public ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("id") Integer userId) {
-        logger.info("GET request - reservation/user/{id}");
+    @GetMapping(value = "/user/{userId}")
+    public ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("userId") Integer userId) throws Exception {
+        logger.info("GET request - reservation/user/{userId}");
         return ResponseEntity.ok(reservationService.getAllOwnedReservations(userId));
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("id") Integer reservationId) {
-        logger.info("GET request - reservation/{id}");
-        return ResponseEntity.ok(reservationService.getReservationDTOById(reservationId));
+    @GetMapping(value = "/{resId}/user/{userId}")
+    public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("resId") Integer reservationId,
+                                                                     @PathVariable("userId") Integer userId) throws Exception {
+        logger.info("GET request - reservation/{resId}/user/{userId}");
+        return ResponseEntity.ok(reservationService.getReservationDTOById(reservationId, userId));
     }
 
     @PostMapping(value = "/new")
@@ -52,9 +53,9 @@ public class ReservationController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping (value = "/{id}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable("id") Integer reservationId) {
-        logger.info("DELETE request - reservation/{id}");
+    @DeleteMapping (value = "/{resId}")
+    public ResponseEntity<Void> cancelReservation(@PathVariable("resId") Integer reservationId) {
+        logger.info("DELETE request - reservation/{resId}");
         reservationService.cancelReservation(reservationId);
         return ResponseEntity.ok().build();
     }
