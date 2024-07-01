@@ -2,26 +2,28 @@ package swa.semproject.reservationservice.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.environment.Generator;
 import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
-
+import swa.semproject.reservationservice.model.dto.UserResponseDTO;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -31,8 +33,17 @@ class ReservationServiceTest {
     @PersistenceContext
     private EntityManager em;
 
+    @InjectMocks
     @Autowired
     private ReservationService sut;
+
+    @Mock
+    private UserServiceClient userServiceClient;
+
+    @BeforeEach
+    void initTest() {
+        MockitoAnnotations.openMocks(this);
+    }
 
 
     @Test
@@ -71,7 +82,10 @@ class ReservationServiceTest {
 
     @Test
     void createReservation() throws Exception {
-        final Reservation reservation = Generator.generateReservationForUser(1);
+        Integer userId = 1;
+        when(userServiceClient.getUser(userId)).thenReturn(new UserResponseDTO(userId));
+
+        final Reservation reservation = Generator.generateReservationForUser(userId);
 
         Integer resId = sut.createReservation(new ReservationRequestDTO(reservation));
 

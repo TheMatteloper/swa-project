@@ -4,17 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 import swa.semproject.reservationservice.model.dto.ReservationResponseDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
+import swa.semproject.reservationservice.model.dto.UserResponseDTO;
 import swa.semproject.reservationservice.repository.ReservationRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -24,8 +25,15 @@ public class ReservationService {
 
     private final ReservationRepository repo;
 
-    public ReservationService(ReservationRepository repo) {
+    private UserServiceClient userServiceClient;
+
+    public ReservationService(ReservationRepository repo, UserServiceClient userServiceClient) {
         this.repo = repo;
+        this.userServiceClient = userServiceClient;
+    }
+
+    public void setUserServiceClient(UserServiceClient userServiceClient) {
+        this.userServiceClient = userServiceClient;
     }
 
     public List<ReservationViewDTO> getAllOwnedReservations(Integer userId) {
@@ -48,8 +56,6 @@ public class ReservationService {
 
     public Integer createReservation(ReservationRequestDTO reservationRequestDTO) throws Exception {
 
-        //TODO check available rooms?
-
         if (reservationRequestDTO.getUserId() == null ||
                 reservationRequestDTO.getRoomId() == null ||
                 reservationRequestDTO.getTimeFrom() == null ||
@@ -60,7 +66,13 @@ public class ReservationService {
             throw new Exception("Invalid reservation data");
         }
 
-        // TODO check if user exists
+        //check whether user exists
+        Integer userId = reservationRequestDTO.getUserId();
+        UserResponseDTO user = userServiceClient.getUser(userId);
+        if (!user.getId().equals(userId)) {
+            logger.warn("Reservation could not be created - user not found");
+            throw new Exception("Invalid user data");
+        }
 
         Reservation reservation = new Reservation(reservationRequestDTO);
 
