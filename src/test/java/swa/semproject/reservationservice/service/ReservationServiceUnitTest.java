@@ -20,9 +20,7 @@ import java.util.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@Disabled
-@SpringBootTest
-@Transactional
+
 class ReservationServiceUnitTest {
 
     @Mock
@@ -32,7 +30,6 @@ class ReservationServiceUnitTest {
     private UserServiceClient userServiceClient;
 
     @InjectMocks
-    @Autowired
     private ReservationService sut;
 
     @BeforeEach
