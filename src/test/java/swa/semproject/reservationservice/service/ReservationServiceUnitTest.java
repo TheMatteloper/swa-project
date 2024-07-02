@@ -4,9 +4,6 @@ import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.environment.Generator;
 import swa.semproject.reservationservice.model.Reservation;
@@ -30,7 +27,6 @@ class ReservationServiceUnitTest {
     private UserServiceClient userServiceClient;
 
     @InjectMocks
-    @Autowired
     private ReservationService sut;
 
     @BeforeEach
