@@ -36,8 +36,8 @@ class ReservationServiceIntegrationTest {
     @Mock
     private UserServiceClient userServiceClient;
 
-    @InjectMocks
     @Autowired
+    @InjectMocks
     private ReservationService sut;
 
     @BeforeEach
