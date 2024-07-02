@@ -41,7 +41,7 @@ class ReservationServiceIntegrationTest {
     private ReservationService sut;
 
     @BeforeEach
-    void initTest() {
+    public void initTest() {
         MockitoAnnotations.openMocks(this);
 
         Integer userId = 1;
@@ -50,7 +50,7 @@ class ReservationServiceIntegrationTest {
 
 
     @Test
-    void getAllOwnedReservations() throws Exception {
+    public void getAllOwnedReservations() throws Exception {
         // Arrange
         Integer userId = 1;
         List<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
@@ -76,7 +76,7 @@ class ReservationServiceIntegrationTest {
     }
 
     @Test
-    void getReservationById() {
+    public void getReservationById() {
         // Arrange
         final Reservation reservation = Generator.generateReservationForUser(1);
         em.persist(reservation);
@@ -90,7 +90,7 @@ class ReservationServiceIntegrationTest {
     }
 
     @Test
-    void createReservation() throws Exception {
+    public void createReservation() throws Exception {
         // Arrange
         Integer userId = 1;
         final Reservation reservation = Generator.generateReservationForUser(userId);
@@ -106,7 +106,7 @@ class ReservationServiceIntegrationTest {
     }
 
     @Test
-    void cancelReservation() {
+    public void cancelReservation() {
         // Arrange
         final Reservation reservation = Generator.generateUnpaidReservationForUser(1);
         em.persist(reservation);

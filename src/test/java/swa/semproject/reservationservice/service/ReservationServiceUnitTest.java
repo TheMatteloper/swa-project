@@ -35,7 +35,7 @@ class ReservationServiceUnitTest {
     private ReservationService sut;
 
     @BeforeEach
-    void initTest() {
+    public void initTest() {
         MockitoAnnotations.openMocks(this);
 
         Integer userId = 1;
@@ -43,13 +43,13 @@ class ReservationServiceUnitTest {
     }
 
     @AfterEach
-    void resetMocks() {
+    public void resetMocks() {
         reset(repo);
         reset(userServiceClient);
     }
 
     @Test
-    void getAllOwnedReservations() throws Exception {
+    public void getAllOwnedReservations() throws Exception {
         // Arrange
         Integer userId = 1;
         List<Reservation> reservations = Generator.generateListOfReservationsForUser(userId);
@@ -82,7 +82,7 @@ class ReservationServiceUnitTest {
     }
 
     @Test
-    void getReservationById() {
+    public void getReservationById() {
         // Arrange
         Integer resId = 1;
         final Reservation reservation = Generator.generateReservationForUser(resId);
@@ -97,7 +97,7 @@ class ReservationServiceUnitTest {
     }
 
     @Test
-    void createReservation() {
+    public void createReservation() {
         // Arrange
         Integer userId = 1;
         final Reservation reservation = Generator.generateReservationForUser(userId);
@@ -112,7 +112,7 @@ class ReservationServiceUnitTest {
     }
 
     @Test
-    void createReservation_nullRoomId_ThrowsError() {
+    public void createReservation_nullRoomId_ThrowsError() {
         // Arrange
         Integer userId = 1;
         final Reservation reservation = Generator.generateReservationForUser(userId);
@@ -124,7 +124,7 @@ class ReservationServiceUnitTest {
     }
 
     @Test
-    void cancelReservation() {
+    public void cancelReservation() {
         // Arrange
         Integer resId = 1;
         final Reservation reservation = Generator.generateUnpaidReservationForUser(1);
