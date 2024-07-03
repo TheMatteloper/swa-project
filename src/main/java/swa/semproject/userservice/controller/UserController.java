@@ -1,6 +1,8 @@
 package swa.semproject.userservice.controller;
 
 import feign.Body;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,6 +24,8 @@ public class UserController {
 
     private final UserMapper userMapper;
 
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
@@ -36,8 +40,10 @@ public class UserController {
     })
     public UserResponseDTO getUser(@PathVariable Integer id) {
         try {
+            logger.info("GET request - getUser - /user/{id} - user found");
             return userMapper.convertToDto(userService.getUserById(id));
         } catch (Exception e) {
+            logger.info("GET request - getUser - /user/{id} - user not found");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
@@ -48,6 +54,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
     })
     public void createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        logger.info("POST request - createUser");
         userService.createUser(userMapper.convertToEntity(userRequestDTO));
     }
 
@@ -57,6 +64,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
     })
     public void deleteUser(@PathVariable Integer id) {
+        logger.info("DELETE request - deleteUser - /user/{id}");
         userService.deleteUserById(id);
     }
 
