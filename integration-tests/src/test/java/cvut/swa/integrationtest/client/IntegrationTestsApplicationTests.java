@@ -1,4 +1,4 @@
-package cvut.swa.integrationtest;
+package cvut.swa.integrationtest.client;
 
 import cvut.swa.integrationtest.client.UserServiceClient;
 import org.junit.jupiter.api.*;
