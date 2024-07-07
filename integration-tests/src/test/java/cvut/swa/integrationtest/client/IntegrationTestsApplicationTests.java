@@ -1,6 +1,7 @@
 package cvut.swa.integrationtest.client;
 
-import cvut.swa.integrationtest.client.UserServiceClient;
+
+import cvut.swa.integrationtest.dto.UserRequestDTO;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ class IntegrationTestsApplicationTests {
 
 
 	@Test
-	public void test() {
+	public void createUser_getUserReturnsCreatedUser() {
+		userServiceClient.createUser(new UserRequestDTO("test", "test", "test",
+				"test@test.com", 123456789));
 		Assertions.assertDoesNotThrow(() -> userServiceClient.getUser("1"));
 	}
 
