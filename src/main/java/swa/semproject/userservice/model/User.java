@@ -12,23 +12,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "login", unique = true, nullable = false)
-    private String login;
+    @Column(name = "userName", unique = true, nullable = false)
+    private String userName;
 
     @Column(name = "password", nullable = false)
     public String password;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "lastName")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "telephone")
-    private String telephone;
+    @Column(name = "tel")
+    private Integer tel;
 
 }
 

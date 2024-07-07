@@ -33,12 +33,12 @@ class UserServiceIntegrationTests {
 
 	public static User generateRandomUser() {
 		User user = new User();
-		user.setName("John");
-		user.setLogin(generateRandomString()); // has to be unique
+		user.setFirstName("John");
+		user.setUserName(generateRandomString()); // has to be unique
 		user.setEmail("john@gmail.com");
-		user.setSurname("Doe");
+		user.setLastName("Doe");
 		user.setPassword("1234");
-		user.setTelephone("993 000 123");
+		user.setTel(12345678);
 		return user;
 	}
 
