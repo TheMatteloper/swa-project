@@ -15,7 +15,12 @@ public class UserRequestDTO {
 
     private String lastName;
 
+    private String password;
+
     private String email;
 
     private Integer tel;
+
+    // FIX for fasterJackson serialization
+    public  UserRequestDTO() {}
 }

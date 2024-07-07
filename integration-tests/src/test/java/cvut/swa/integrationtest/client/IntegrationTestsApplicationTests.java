@@ -6,9 +6,11 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
+@EnableFeignClients
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class IntegrationTestsApplicationTests {
 
@@ -19,7 +21,7 @@ class IntegrationTestsApplicationTests {
 	@Test
 	public void createUser_getUserReturnsCreatedUser() {
 		userServiceClient.createUser(new UserRequestDTO("test", "test", "test",
-				"test@test.com", 123456789));
+				"password", "test@test.com", 123456789));
 		Assertions.assertDoesNotThrow(() -> userServiceClient.getUser("1"));
 	}
 
