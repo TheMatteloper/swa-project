@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import swa.semproject.reservationservice.client.MailServiceClient;
 import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.environment.Generator;
 import swa.semproject.reservationservice.model.Reservation;
@@ -29,8 +30,10 @@ class ReservationServiceUnitTest {
     @Mock
     private UserServiceClient userServiceClient;
 
+    @Mock
+    MailServiceClient mailServiceClient;
+
     @InjectMocks
-    @Autowired
     private ReservationService sut;
 
     @BeforeEach
