@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+import swa.semproject.reservationservice.client.MailServiceClient;
 import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.environment.Generator;
@@ -33,8 +35,11 @@ class ReservationServiceIntegrationTest {
     @PersistenceContext
     private EntityManager em;
 
-    @Mock
+    @MockBean
     private UserServiceClient userServiceClient;
+
+    @MockBean
+    private MailServiceClient mailServiceClient;
 
     @Autowired
     @InjectMocks

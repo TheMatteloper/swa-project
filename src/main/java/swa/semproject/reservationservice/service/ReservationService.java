@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swa.semproject.reservationservice.client.MailServiceClient;
 import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.Reservation;
-import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
-import swa.semproject.reservationservice.model.dto.ReservationResponseDTO;
-import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
-import swa.semproject.reservationservice.model.dto.UserResponseDTO;
+import swa.semproject.reservationservice.model.dto.*;
 import swa.semproject.reservationservice.repository.ReservationRepository;
 
 import java.time.LocalDate;
@@ -27,18 +25,22 @@ public class ReservationService {
 
     private UserServiceClient userServiceClient;
 
-    public ReservationService(ReservationRepository repo, UserServiceClient userServiceClient) {
+    private MailServiceClient mailServiceClient;
+
+    public ReservationService(ReservationRepository repo, UserServiceClient userServiceClient, MailServiceClient mailServiceClient) {
         this.repo = repo;
         this.userServiceClient = userServiceClient;
+        this.mailServiceClient = mailServiceClient;
     }
 
-    public void checkIfUserExists(Integer userId) throws Exception {
+    public UserResponseDTO checkIfUserExists(Integer userId) throws Exception {
         UserResponseDTO user = userServiceClient.getUser(userId);
 
         if (!user.getId().equals(userId)) {
             logger.warn("Request failed - user not found");
             throw new Exception("Invalid user data");
         }
+        return user;
     }
 
     public List<ReservationViewDTO> getAllOwnedReservations(Integer userId) throws Exception {
@@ -86,14 +88,14 @@ public class ReservationService {
         }
 
         // check user existence
-        checkIfUserExists(reservationRequestDTO.getUserId());
+        UserResponseDTO user = checkIfUserExists(reservationRequestDTO.getUserId());
 
         Reservation reservation = new Reservation(reservationRequestDTO);
 
         repo.save(reservation);
         logger.info(String.format("Reservation id %s created", reservation.getId()));
 
-        // TODO call mail service
+        sendReservationEmail(user.getEmail());
 
         return reservation.getId();
     }
@@ -107,11 +109,7 @@ public class ReservationService {
         logger.info(String.format("Reservation id %s cancelled", reservationId));
     }
 
-    public void setUserServiceClient(UserServiceClient userServiceClient) {
-        this.userServiceClient = userServiceClient;
-    }
-
-    public void setRepo(ReservationRepository repo) {
-        this.repo = repo;
+    private void sendReservationEmail(String to){
+        mailServiceClient.sendReservationMail(new ReservationMailRequestDTO(to));
     }
 }
