@@ -10,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@EnableFeignClients
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class IntegrationTestsApplicationTests {
 
