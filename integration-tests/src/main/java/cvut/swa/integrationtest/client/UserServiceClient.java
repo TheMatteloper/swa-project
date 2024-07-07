@@ -14,6 +14,6 @@ public interface UserServiceClient {
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     UserResponseDTO getUser(@PathVariable String id);
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     void createUser(@RequestBody UserRequestDTO userRequestDTO);
 }
