@@ -3,16 +3,32 @@ package swa.semproject.userservice;
 import jakarta.ws.rs.NotFoundException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import swa.semproject.userservice.client.MailServiceClient;
+import swa.semproject.userservice.dto.request.RegistrationMailRequestDTO;
 import swa.semproject.userservice.model.User;
 import swa.semproject.userservice.service.UserService;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UserServiceIntegrationTests {
 
+	@MockBean
+	private MailServiceClient mailServiceClient;
+
 	@Autowired
+	@InjectMocks
 	private UserService userService;
 
 	public static User generateRandomUser() {
@@ -30,6 +46,10 @@ class UserServiceIntegrationTests {
 		return RandomStringUtils.randomAlphanumeric(10);
 	}
 
+	@BeforeEach
+	public void initTest() {
+		MockitoAnnotations.openMocks(this);
+	}
 
 	@Test
 	void getUserById_ShouldReturnUser() {

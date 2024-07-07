@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mail.SimpleMailMessage;
+import swa.semproject.userservice.client.MailServiceClient;
+import swa.semproject.userservice.dto.request.RegistrationMailRequestDTO;
 import swa.semproject.userservice.model.User;
 import swa.semproject.userservice.repository.UserRepository;
 import swa.semproject.userservice.service.UserService;
@@ -20,6 +23,9 @@ class UserServiceUnitTests {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private MailServiceClient mailServiceClient;
+
     private UserService userService;
 
     // Mocks UserRepository when persisting entity
@@ -31,7 +37,7 @@ class UserServiceUnitTests {
     @BeforeEach
     void initUseCase() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, mailServiceClient);
         //thenReturn() is computed at the time the mock behavior is set up
         //thenAnswer, then are dynamic computed
         //when(userRepository.save(any(User.class))).thenReturn(userSetId(user));
@@ -47,6 +53,15 @@ class UserServiceUnitTests {
         User user = UserServiceIntegrationTests.generateRandomUser();
         userService.createUser(user);
         assertThat(user.getId() == 1).isEqualTo(true);
+    }
+
+    @Test
+    void createUser_shouldSendRegistrationEmail() {
+        User user = UserServiceIntegrationTests.generateRandomUser();
+        userService.createUser(user);
+
+        Mockito.verify(mailServiceClient).sendRegistrationMail(any(RegistrationMailRequestDTO.class));
+        Mockito.verify(mailServiceClient, times(1)).sendRegistrationMail(any(RegistrationMailRequestDTO.class));
     }
 
     @Test
