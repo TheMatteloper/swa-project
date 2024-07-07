@@ -8,6 +8,7 @@ services:
       - user-service-db
       - service-discovery
     environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-service-db:5432/USER_DB
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -35,6 +36,7 @@ services:
       - reservation-service-db
       - service-discovery
     environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://reservation-service-db:5432/RESERVATION_DB
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
