@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 
-    List<ReservationViewDTO> findAllByUserId(Integer userId);
+    List<Reservation> findAllByUserId(Integer userId);
 
     Optional<Reservation> getReservationById(Integer id);
 

@@ -27,4 +27,14 @@ public class ReservationRequestDTO {
     private LocalTime timeTo;
 
     private ReservationStatus status;
+
+    public ReservationRequestDTO(Reservation r) {
+        this.userId = r.getUserId();
+        this.roomId = r.getRoomId();
+        this.date = r.getDate();
+        this.timeFrom = r.getTimeFrom();
+        this.timeTo = r.getTimeTo();
+        this.status = r.getStatus();
+    }
+
 }
