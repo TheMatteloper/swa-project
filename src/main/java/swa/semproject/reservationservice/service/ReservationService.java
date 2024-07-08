@@ -85,9 +85,7 @@ public class ReservationService {
         if (reservationRequestDTO.getUserId() == null ||
                 reservationRequestDTO.getRoomId() == null ||
                 reservationRequestDTO.getTimeFrom() == null ||
-                reservationRequestDTO.getTimeTo() == null ||
-                reservationRequestDTO.getDate() == null ||
-                reservationRequestDTO.getDate().isBefore(LocalDate.now())) {
+                reservationRequestDTO.getTimeTo() == null) {
             logger.warn("Reservation could not be created - invalid data");
             throw new Exception("Invalid reservation data");
         }

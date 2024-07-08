@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import swa.semproject.reservationservice.client.MailServiceClient;
 import swa.semproject.reservationservice.client.UserServiceClient;
@@ -81,7 +80,7 @@ class ReservationServiceUnitTest {
     List<ReservationViewDTO> convertToViewDTO(List<Reservation> reservations) {
         List<ReservationViewDTO> reservationViewDTOS = new ArrayList<>();
         for (Reservation r : reservations) {
-            reservationViewDTOS.add(new ReservationViewDTO(r.getId(), r.getRoomId(), r.getDate(), r.getStatus()));
+            reservationViewDTOS.add(new ReservationViewDTO(r.getId(), r.getRoomId(), r.getTimeFrom(), r.getStatus()));
         }
         return reservationViewDTOS;
     }

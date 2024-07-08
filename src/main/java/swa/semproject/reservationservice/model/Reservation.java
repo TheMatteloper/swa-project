@@ -1,13 +1,11 @@
 package swa.semproject.reservationservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import swa.semproject.reservationservice.enums.ReservationStatus;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -26,16 +24,12 @@ public class Reservation {
     @Column(name = "roomId")
     private Integer roomId;
 
-    @Column(name = "date")
-    private LocalDate date;
 
     @Column(name = "timeFrom")
-    @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime timeFrom;
+    private LocalDateTime timeFrom;
 
     @Column(name = "timeTo")
-    @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime timeTo;
+    private LocalDateTime timeTo;
 
     @Enumerated
     @Column(name = "status")
@@ -47,7 +41,6 @@ public class Reservation {
         this.id = null;
         this.userId = r.getUserId();
         this.roomId = r.getRoomId();
-        this.date = r.getDate();
         this.timeFrom = r.getTimeFrom();
         this.timeTo = r.getTimeTo();
         this.status = r.getStatus();
@@ -61,7 +54,6 @@ public class Reservation {
         return Objects.equals(id, that.id) &&
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(roomId, that.roomId) &&
-                Objects.equals(date, that.date) &&
                 Objects.equals(timeFrom, that.timeFrom) &&
                 Objects.equals(timeTo, that.timeTo) &&
                 status == that.status;
@@ -69,7 +61,7 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, roomId, date, timeFrom, timeTo, status);
+        return Objects.hash(id, userId, roomId, timeFrom, timeTo, status);
     }
 }
 
