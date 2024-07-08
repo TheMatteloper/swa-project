@@ -1,12 +1,18 @@
 package cvut.swa.integrationtest.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import cvut.swa.integrationtest.enums.ReservationStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationViewDTO {
 
     private Integer id;
@@ -16,14 +22,6 @@ public class ReservationViewDTO {
     private LocalDate date;
 
     private ReservationStatus status;
-
-
-    public ReservationViewDTO(Integer id, Integer roomId, LocalDate date, ReservationStatus status) {
-        this.id = id;
-        this.roomId = roomId;
-        this.date = date;
-        this.status = status;
-    }
 
 
     @Override
