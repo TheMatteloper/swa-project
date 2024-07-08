@@ -1,4 +1,4 @@
-package dto;
+package swa.semproject.mailservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

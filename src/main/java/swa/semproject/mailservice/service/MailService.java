@@ -1,8 +1,8 @@
-package service;
+package swa.semproject.mailservice.service;
 
-import controller.MailController;
-import dto.RegistrationMailRequestDTO;
-import dto.ReservationMailRequestDTO;
+import swa.semproject.mailservice.controller.MailController;
+import swa.semproject.mailservice.dto.RegistrationMailRequestDTO;
+import swa.semproject.mailservice.dto.ReservationMailRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

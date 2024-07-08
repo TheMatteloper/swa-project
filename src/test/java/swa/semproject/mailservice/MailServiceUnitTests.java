@@ -1,7 +1,7 @@
 package swa.semproject.mailservice;
 
-import dto.RegistrationMailRequestDTO;
-import dto.ReservationMailRequestDTO;
+import swa.semproject.mailservice.dto.RegistrationMailRequestDTO;
+import swa.semproject.mailservice.dto.ReservationMailRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import service.MailService;
+import swa.semproject.mailservice.service.MailService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;

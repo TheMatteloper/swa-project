@@ -1,7 +1,7 @@
-package controller;
+package swa.semproject.mailservice.controller;
 
-import dto.RegistrationMailRequestDTO;
-import dto.ReservationMailRequestDTO;
+import swa.semproject.mailservice.dto.RegistrationMailRequestDTO;
+import swa.semproject.mailservice.dto.ReservationMailRequestDTO;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import service.MailService;
+import swa.semproject.mailservice.service.MailService;
 
 @RestController
 @RequestMapping(value = "/mail")
