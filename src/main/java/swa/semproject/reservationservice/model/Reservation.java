@@ -1,5 +1,6 @@
 package swa.semproject.reservationservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import swa.semproject.reservationservice.enums.ReservationStatus;
@@ -29,9 +30,11 @@ public class Reservation {
     private LocalDate date;
 
     @Column(name = "timeFrom")
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime timeFrom;
 
     @Column(name = "timeTo")
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime timeTo;
 
     @Enumerated

@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import swa.semproject.reservationservice.client.MailServiceClient;
 import swa.semproject.reservationservice.client.UserServiceClient;
 import swa.semproject.reservationservice.enums.ReservationStatus;
-import swa.semproject.reservationservice.mapper.ReservationMapper;
 import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.*;
 import swa.semproject.reservationservice.repository.ReservationRepository;
@@ -29,14 +28,12 @@ public class ReservationService {
 
     private MailServiceClient mailServiceClient;
 
-    private ReservationMapper reservationMapper;
 
     public ReservationService(ReservationRepository repo, UserServiceClient userServiceClient,
-                              MailServiceClient mailServiceClient, ReservationMapper reservationMapper) {
+                              MailServiceClient mailServiceClient) {
         this.repo = repo;
         this.userServiceClient = userServiceClient;
         this.mailServiceClient = mailServiceClient;
-        this.reservationMapper = reservationMapper;
     }
 
     public UserResponseDTO checkIfUserExists(Integer userId) throws Exception {
@@ -54,7 +51,7 @@ public class ReservationService {
         checkIfUserExists(userId);
 
         return repo.findAllByUserId(userId).stream()
-                .map(x -> reservationMapper.convertToViewDto(x))
+                .map(ReservationViewDTO::new)
                 .collect(Collectors.toList());
     }
 

@@ -1,5 +1,6 @@
 package swa.semproject.reservationservice.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,8 +25,10 @@ public class ReservationResponseDTO {
 
     private LocalDate date;
 
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime timeFrom;
 
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime timeTo;
 
     private ReservationStatus status;

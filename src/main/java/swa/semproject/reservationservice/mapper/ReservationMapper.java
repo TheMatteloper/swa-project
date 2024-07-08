@@ -1,4 +1,4 @@
-package swa.semproject.reservationservice.mapper;
+/*package swa.semproject.reservationservice.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -30,3 +30,4 @@ public class ReservationMapper {
 }
 
 
+*/

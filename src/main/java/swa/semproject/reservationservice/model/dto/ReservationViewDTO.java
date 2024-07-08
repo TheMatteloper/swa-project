@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import swa.semproject.reservationservice.enums.ReservationStatus;
+import swa.semproject.reservationservice.model.Reservation;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -22,6 +23,13 @@ public class ReservationViewDTO {
     private LocalDate date;
 
     private ReservationStatus status;
+
+    public ReservationViewDTO(Reservation r) {
+        this.id = r.getId();
+        this.roomId = r.getRoomId();
+        this.date = r.getDate();
+        this.status = r.getStatus();
+    }
 
     @Override
     public boolean equals(Object o) {
