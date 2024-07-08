@@ -10,6 +10,6 @@ import swa.semproject.userservice.dto.request.RegistrationMailRequestDTO;
 @FeignClient("mail-service")
 public interface MailServiceClient {
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/mail/registration", method = RequestMethod.POST)
     void sendRegistrationMail(@RequestBody RegistrationMailRequestDTO registrationMailRequestDTO);
 }
