@@ -1,5 +1,6 @@
 package cvut.swa.integrationtest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class ReservationViewDTO {
 
     private Integer roomId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime timeFrom;
 
     private ReservationStatus status;
