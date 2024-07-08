@@ -114,11 +114,9 @@
 		</dependency>
 
 
-		<!-- Eclipselink JPA reference implementation -->
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
-			<version>${org.eclipse.persistence.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 

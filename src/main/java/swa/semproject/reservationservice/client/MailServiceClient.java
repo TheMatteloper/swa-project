@@ -9,6 +9,6 @@ import swa.semproject.reservationservice.model.dto.ReservationMailRequestDTO;
 @FeignClient("mail-service")
 public interface MailServiceClient {
 
-    @RequestMapping(value = "/reservation", method = RequestMethod.POST)
+    @RequestMapping(value = "/mail/reservation", method = RequestMethod.POST)
     void sendReservationMail(@RequestBody ReservationMailRequestDTO reservationMailRequestDTO);
 }
