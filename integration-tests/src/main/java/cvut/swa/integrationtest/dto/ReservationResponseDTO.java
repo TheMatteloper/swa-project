@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationResponseDTO {
 
@@ -28,5 +26,8 @@ public class ReservationResponseDTO {
     private LocalTime timeTo;
 
     private ReservationStatus status;
+
+    public ReservationResponseDTO() {
+    }
 
 }

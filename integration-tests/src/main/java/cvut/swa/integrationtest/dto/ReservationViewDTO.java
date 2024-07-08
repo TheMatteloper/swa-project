@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationViewDTO {
 
@@ -23,6 +21,8 @@ public class ReservationViewDTO {
 
     private ReservationStatus status;
 
+    public ReservationViewDTO() {
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -22,7 +22,7 @@ public interface ReservationServiceClient {
     @PostMapping(value = "/new")
     void createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO);
 
-    @DeleteMapping (value = "/{resId}")
+    @DeleteMapping(value = "/{resId}")
     void cancelReservation(@PathVariable("resId") Integer reservationId);
 
 }
