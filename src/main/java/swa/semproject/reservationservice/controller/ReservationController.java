@@ -54,7 +54,7 @@ public class ReservationController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Reservation successfully created", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Reservation successfully created", content = @Content),
             @ApiResponse(responseCode = "400", description = "Reservation could not be created", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content())
     })
@@ -63,12 +63,7 @@ public class ReservationController {
         logger.info("POST request - reservation/new");
         Integer resId = reservationService.createReservation(reservationRequestDTO);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(resId)
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.ok().build();
     }
 
     @ApiResponses(value = {
