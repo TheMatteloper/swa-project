@@ -40,7 +40,6 @@ public class UserController {
     })
     public UserResponseDTO getUser(@PathVariable Integer id) {
         try {
-            logger.info("GET request - getUser - /user/{id} - user found");
             return userMapper.convertToDto(userService.getUserById(id));
         } catch (Exception e) {
             logger.info("GET request - getUser - /user/{id} - user not found");
@@ -53,9 +52,9 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "User successfully created"),
             @ApiResponse(responseCode = "500", description = "Internal service error", content = @Content())
     })
-    public void createUser(@RequestBody UserRequestDTO userRequestDTO) {
+    public int createUser(@RequestBody UserRequestDTO userRequestDTO) {
         logger.info("POST request - createUser");
-        userService.createUser(userMapper.convertToEntity(userRequestDTO));
+        return userService.createUser(userMapper.convertToEntity(userRequestDTO));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

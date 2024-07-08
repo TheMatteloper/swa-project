@@ -27,9 +27,10 @@ public class UserService {
                 () -> new NotFoundException("User with id \"" + id + "\" not found!"));
     }
 
-    public void createUser(User user) {
+    public int createUser(User user) {
         userRepository.save(user);
         sendRegistrationEmail(user.getEmail());
+        return user.getId();
     }
 
     public void deleteUserById(int id) {
