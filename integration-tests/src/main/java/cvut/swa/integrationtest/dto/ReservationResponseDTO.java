@@ -5,8 +5,7 @@ import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,11 +18,9 @@ public class ReservationResponseDTO {
 
     private Integer roomId;
 
-    private LocalDate date;
+    private LocalDateTime timeFrom;
 
-    private LocalTime timeFrom;
-
-    private LocalTime timeTo;
+    private LocalDateTime timeTo;
 
     private ReservationStatus status;
 

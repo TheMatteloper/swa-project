@@ -5,7 +5,7 @@ import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
@@ -17,7 +17,7 @@ public class ReservationViewDTO {
 
     private Integer roomId;
 
-    private LocalDate date;
+    private LocalDateTime timeFrom;
 
     private ReservationStatus status;
 
@@ -29,12 +29,12 @@ public class ReservationViewDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReservationViewDTO that = (ReservationViewDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(roomId, that.roomId) && Objects.equals(date, that.date) && status == that.status;
+        return Objects.equals(id, that.id) && Objects.equals(roomId, that.roomId) && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomId, date, status);
+        return Objects.hash(id, roomId, timeFrom, status);
     }
 
 }
