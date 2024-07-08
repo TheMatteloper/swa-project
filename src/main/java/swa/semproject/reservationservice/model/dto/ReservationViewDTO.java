@@ -1,5 +1,6 @@
 package swa.semproject.reservationservice.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class ReservationViewDTO {
 
     private Integer roomId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime timeFrom;
 
     private ReservationStatus status;

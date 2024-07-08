@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,7 +34,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "400", description = "User not found", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content())
     })
-    @GetMapping(value = "/user/{userId}")
+    @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("userId") Integer userId) throws Exception {
         logger.info("GET request - reservation/user/{userId}");
         return ResponseEntity.ok(reservationService.getAllOwnedReservations(userId));
@@ -45,7 +46,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content())
     })
 
-    @GetMapping(value = "/{resId}/user/{userId}")
+    @GetMapping(value = "/{resId}/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("resId") Integer reservationId,
                                                                      @PathVariable("userId") Integer userId) throws Exception {
         logger.info("GET request - reservation/{resId}/user/{userId}");
@@ -57,7 +58,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "400", description = "Reservation could not be created", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content())
     })
-    @PostMapping(value = "/new")
+    @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) throws Exception {
         logger.info("POST request - reservation/new");
         Integer resId = reservationService.createReservation(reservationRequestDTO);
