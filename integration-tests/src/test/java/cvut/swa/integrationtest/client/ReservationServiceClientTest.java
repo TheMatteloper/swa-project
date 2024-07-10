@@ -6,6 +6,7 @@ import cvut.swa.integrationtest.dto.ReservationRequestDTO;
 import cvut.swa.integrationtest.dto.ReservationResponseDTO;
 import cvut.swa.integrationtest.dto.ReservationViewDTO;
 import cvut.swa.integrationtest.environment.Generator;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,16 @@ class ReservationServiceClientTest {
     @Autowired
     private ReservationServiceClient reservationServiceClient;
 
-    private static UserServiceClient userServiceClient;
+    @Autowired
+    private UserServiceClient userServiceClient;
 
     private static final Integer userId = 1;
     private static final Integer numberOfInstances = 5;
 
-    @BeforeAll
-    public static void init_user() {
+    @BeforeEach
+    public void init_user() {
         userServiceClient.createUser(new UserRequestDTO("test1", "test1", "test1",
                 "password1", "test@test.com", 123456789));
-    }
-
-    public static void setUserServiceClient(UserServiceClient userServiceClient) {
-        ReservationServiceClientTest.userServiceClient = userServiceClient;
     }
 
     @Test
