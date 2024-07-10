@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import swa.semproject.reservationservice.model.dto.ReservationMailRequestDTO;
 
-@FeignClient("mail-service")
+@FeignClient(name = "mail-service", url = "http://docker:8236")
 public interface MailServiceClient {
 
     @RequestMapping(value = "/mail/reservation", method = RequestMethod.POST)

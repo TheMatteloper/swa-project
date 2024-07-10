@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import swa.semproject.reservationservice.model.dto.UserResponseDTO;
 
-@FeignClient("user-service")
+@FeignClient(name = "user-service", url = "http://docker:8234")
 public interface UserServiceClient {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
