@@ -98,7 +98,8 @@ public class ReservationService {
         repo.save(reservation);
         logger.info(String.format("Reservation id %s created", reservation.getId()));
 
-        sendReservationEmail(user.getEmail());
+        sendReservationEmail(user.getEmail(), reservationRequestDTO.getTimeFrom().toString(),
+                reservationRequestDTO.getTimeTo().toString());
 
         return reservation.getId();
     }
@@ -112,7 +113,7 @@ public class ReservationService {
         logger.info(String.format("Reservation id %s cancelled", reservationId));
     }
 
-    private void sendReservationEmail(String to){
-        mailServiceClient.sendReservationMail(new ReservationMailRequestDTO(to));
+    private void sendReservationEmail(String to, String dateFrom, String dateTo){
+        mailServiceClient.sendReservationMail(new ReservationMailRequestDTO(to, dateFrom, dateTo));
     }
 }

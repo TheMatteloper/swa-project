@@ -11,5 +11,10 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationMailRequestDTO {
 
-    private String to;
+    private String sendTo;
+
+    private String dateFrom;
+
+    private String dateTo;
+
 }
