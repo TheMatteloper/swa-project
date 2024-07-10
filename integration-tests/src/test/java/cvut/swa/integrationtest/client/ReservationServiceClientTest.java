@@ -24,16 +24,19 @@ class ReservationServiceClientTest {
     @Autowired
     private ReservationServiceClient reservationServiceClient;
 
-    @Autowired
-    private UserServiceClient userServiceClient;
+    private static UserServiceClient userServiceClient;
 
     private static final Integer userId = 1;
     private static final Integer numberOfInstances = 5;
 
     @BeforeAll
-    public void init_user() {
+    public static void init_user() {
         userServiceClient.createUser(new UserRequestDTO("test1", "test1", "test1",
                 "password1", "test@test.com", 123456789));
+    }
+
+    public static void setUserServiceClient(UserServiceClient userServiceClient) {
+        ReservationServiceClientTest.userServiceClient = userServiceClient;
     }
 
     @Test
