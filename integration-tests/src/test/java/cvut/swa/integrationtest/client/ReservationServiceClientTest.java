@@ -6,7 +6,6 @@ import cvut.swa.integrationtest.dto.ReservationRequestDTO;
 import cvut.swa.integrationtest.dto.ReservationResponseDTO;
 import cvut.swa.integrationtest.dto.ReservationViewDTO;
 import cvut.swa.integrationtest.environment.Generator;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,15 @@ class ReservationServiceClientTest {
     private static final Integer userId = 1;
     private static final Integer numberOfInstances = 5;
 
-    @BeforeEach
-    public void init_user() {
+    @Test
+    @Order(1)
+    public void initUser() {
         userServiceClient.createUser(new UserRequestDTO("test1", "test1", "test1",
                 "password1", "test@test.com", 123456789));
     }
 
     @Test
-    @Order(1)
+    @Order(2)
     void createNewReservations() {
         // Arrange
         List<ReservationRequestDTO> reservations = Generator.generateListOfReservationRequestDTOForUser(userId,
@@ -50,7 +50,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getOwnedReservations() {
         // Act
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
@@ -64,7 +64,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getReservationById() {
         // Arrange
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
@@ -79,7 +79,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void cancelReservation() {
         // Arrange
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
