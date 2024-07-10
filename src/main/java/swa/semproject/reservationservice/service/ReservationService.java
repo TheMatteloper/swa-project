@@ -98,7 +98,7 @@ public class ReservationService {
         repo.save(reservation);
         logger.info(String.format("Reservation id %s created", reservation.getId()));
 
-        sendReservationEmail(user.getEmail());
+        //sendReservationEmail(user.getEmail());
 
         return reservation.getId();
     }
