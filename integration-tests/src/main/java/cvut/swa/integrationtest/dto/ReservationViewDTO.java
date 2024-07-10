@@ -20,8 +20,7 @@ public class ReservationViewDTO {
 
     private Integer roomId;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timeFrom;
 
     private ReservationStatus status;

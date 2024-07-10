@@ -1,5 +1,6 @@
 package cvut.swa.integrationtest.client;
 
+import cvut.swa.integrationtest.dto.UserRequestDTO;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import cvut.swa.integrationtest.dto.ReservationRequestDTO;
 import cvut.swa.integrationtest.dto.ReservationResponseDTO;
@@ -23,8 +24,17 @@ class ReservationServiceClientTest {
     @Autowired
     private ReservationServiceClient reservationServiceClient;
 
+    @Autowired
+    private UserServiceClient userServiceClient;
+
     private static final Integer userId = 1;
     private static final Integer numberOfInstances = 5;
+
+    @BeforeAll
+    public void init_user() {
+        userServiceClient.createUser(new UserRequestDTO("test1", "test1", "test1",
+                "password1", "test@test.com", 123456789));
+    }
 
     @Test
     @Order(1)
