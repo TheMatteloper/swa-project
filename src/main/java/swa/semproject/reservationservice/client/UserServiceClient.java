@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import swa.semproject.reservationservice.model.dto.UserResponseDTO;
 
-@FeignClient(name = "user-service")
+@FeignClient("user-service")
 public interface UserServiceClient {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
