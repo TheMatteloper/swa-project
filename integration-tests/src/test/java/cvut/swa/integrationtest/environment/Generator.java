@@ -13,6 +13,10 @@ public class Generator {
 
     private static final Random RAND = new Random();
 
+    public static int randomInt() {
+        return RAND.nextInt();
+    }
+
     public static LocalDateTime randomFutureDate() {
         return LocalDateTime.now().plusDays(RAND.nextInt(20));
     }

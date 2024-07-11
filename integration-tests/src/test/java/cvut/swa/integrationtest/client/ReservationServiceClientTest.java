@@ -33,7 +33,7 @@ class ReservationServiceClientTest {
     @Test
     @Order(1)
     public void initUser() {
-        userServiceClient.createUser(new UserRequestDTO("test1", "test1", "test1",
+        userServiceClient.createUser(new UserRequestDTO("username", "test1", "test1",
                 "password1", "test@test.com", 123456789));
     }
 
