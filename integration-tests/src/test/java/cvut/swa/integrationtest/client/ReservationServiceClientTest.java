@@ -27,14 +27,14 @@ class ReservationServiceClientTest {
     @Autowired
     private UserServiceClient userServiceClient;
 
-    private static final Integer userId = 1;
+    private static Integer userId;
     private static final Integer numberOfInstances = 5;
 
     @Test
     @Order(1)
     public void initUser() {
-        userServiceClient.createUser(new UserRequestDTO("username", "test1", "test1",
-                "password1", "test@test.com", 123456789));
+        userId = userServiceClient.createUser(new UserRequestDTO("username" + Generator.randomInt(),
+                "test1", "test1", "password1", "test@test.com", 123456789));
     }
 
     @Test

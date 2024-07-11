@@ -15,5 +15,5 @@ public interface UserServiceClient {
     UserResponseDTO getUser(@PathVariable String id);
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    void createUser(@RequestBody UserRequestDTO userRequestDTO);
+    int createUser(@RequestBody UserRequestDTO userRequestDTO);
 }
