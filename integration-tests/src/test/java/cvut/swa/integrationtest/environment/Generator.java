@@ -30,6 +30,7 @@ public class Generator {
         LocalDateTime time = randomFutureDate();
 
         reservationRequestDTO.setUserId(userId);
+        reservationRequestDTO.setRoomId(randomInt());
         reservationRequestDTO.setTimeFrom(time);
         reservationRequestDTO.setTimeTo(time.plusHours(1));
         reservationRequestDTO.setStatus(randomStatus());
