@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import swa.semproject.reservationservice.model.dto.ReservationRequestDTO;
 import swa.semproject.reservationservice.model.dto.ReservationResponseDTO;
 import swa.semproject.reservationservice.model.dto.ReservationViewDTO;
 import swa.semproject.reservationservice.service.ReservationService;
 
-import java.net.URI;
 import java.util.List;
 
 
@@ -35,9 +33,9 @@ public class ReservationController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content())
     })
     @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("userId") Integer userId) throws Exception {
+    public List<ReservationViewDTO> getOwnedReservations(@PathVariable("userId") Integer userId) throws Exception {
         logger.info("GET request - reservation/user/{userId}");
-        return ResponseEntity.ok(reservationService.getAllOwnedReservations(userId));
+        return reservationService.getAllOwnedReservations(userId);
     }
 
     @ApiResponses(value = {
@@ -47,10 +45,10 @@ public class ReservationController {
     })
 
     @GetMapping(value = "/{resId}/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("resId") Integer reservationId,
+    public ReservationResponseDTO getReservationById(@PathVariable("resId") Integer reservationId,
                                                                      @PathVariable("userId") Integer userId) throws Exception {
         logger.info("GET request - reservation/{resId}/user/{userId}");
-        return ResponseEntity.ok(reservationService.getReservationDTOById(reservationId, userId));
+        return reservationService.getReservationDTOById(reservationId, userId);
     }
 
     @ApiResponses(value = {

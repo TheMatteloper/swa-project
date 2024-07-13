@@ -11,7 +11,6 @@ import swa.semproject.reservationservice.model.Reservation;
 import swa.semproject.reservationservice.model.dto.*;
 import swa.semproject.reservationservice.repository.ReservationRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
