@@ -53,7 +53,7 @@ class ReservationServiceClientTest {
     @Order(3)
     void getOwnedReservations() {
         // Act
-        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
+        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId).getBody();
 
         Set<Integer> resultIds = new HashSet<>();
         for (ReservationViewDTO view : result) {
@@ -67,11 +67,12 @@ class ReservationServiceClientTest {
     @Order(4)
     void getReservationById() {
         // Arrange
-        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
+        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId).getBody();
         Integer resId = result.get(0).getId();
 
         // Act
-        ReservationResponseDTO reservationResponseDTO = reservationServiceClient.getReservationById(resId, userId);
+        ReservationResponseDTO reservationResponseDTO = reservationServiceClient.getReservationById(resId, userId)
+                .getBody();
 
         // Assert
         Assertions.assertEquals(resId, reservationResponseDTO.getId());
@@ -82,14 +83,15 @@ class ReservationServiceClientTest {
     @Order(5)
     void cancelReservation() {
         // Arrange
-        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
+        List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId).getBody();
         Integer resId = result.get(0).getId();
 
         // Act
         Assertions.assertDoesNotThrow(() -> reservationServiceClient.cancelReservation(resId));
 
         // Assert
-        ReservationResponseDTO reservationResponseDTO = reservationServiceClient.getReservationById(resId, userId);
+        ReservationResponseDTO reservationResponseDTO = reservationServiceClient.getReservationById(resId, userId)
+                .getBody();
         Assertions.assertEquals(ReservationStatus.CANCELLED, reservationResponseDTO.getStatus());
         Assertions.assertEquals(resId, reservationResponseDTO.getId());
     }

@@ -5,6 +5,7 @@ import cvut.swa.integrationtest.dto.ReservationResponseDTO;
 import cvut.swa.integrationtest.dto.ReservationViewDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.List;
 public interface ReservationServiceClient {
 
     @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<ReservationViewDTO> getOwnedReservations(@PathVariable("userId") Integer userId);
+    ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("userId") Integer userId);
 
     @GetMapping(value = "/{resId}/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ReservationResponseDTO getReservationById(@PathVariable("resId") Integer reservationId,
+    ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("resId") Integer reservationId,
                                               @PathVariable("userId") Integer userId);
 
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
