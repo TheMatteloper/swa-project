@@ -15,10 +15,10 @@ import java.util.List;
 public interface ReservationServiceClient {
 
     @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ReservationViewDTO>> getOwnedReservations(@PathVariable("userId") Integer userId);
+    List<ReservationViewDTO> getOwnedReservations(@PathVariable("userId") Integer userId);
 
     @GetMapping(value = "/{resId}/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable("resId") Integer reservationId,
+    ReservationResponseDTO getReservationById(@PathVariable("resId") Integer reservationId,
                                               @PathVariable("userId") Integer userId);
 
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
