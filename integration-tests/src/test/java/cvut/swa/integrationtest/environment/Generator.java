@@ -38,13 +38,6 @@ public class Generator {
         return reservationRequestDTO;
     }
 
-    public static ReservationRequestDTO generateUnpaidReservationRequestDTOForUser(Integer userId) {
-        final ReservationRequestDTO reservation = generateReservationRequestDTOForUser(userId);
-        reservation.setStatus(ReservationStatus.UNPAID);
-
-        return reservation;
-    }
-
     public static List<ReservationRequestDTO> generateListOfReservationRequestDTOForUser(Integer userId,
                                                                                          Integer number) {
         List<ReservationRequestDTO> reservations = new ArrayList<>();
