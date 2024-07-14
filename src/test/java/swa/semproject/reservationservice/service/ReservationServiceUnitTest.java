@@ -40,9 +40,6 @@ class ReservationServiceUnitTest {
         MockitoAnnotations.openMocks(this);
 
         when(userServiceClient.getUser(1)).thenReturn(new UserResponseDTO(1));
-
-        //Integer userId = 1;
-        //when(userServiceClient.getUser(userId)).thenReturn(new UserResponseDTO(userId));
     }
 
     @AfterEach
