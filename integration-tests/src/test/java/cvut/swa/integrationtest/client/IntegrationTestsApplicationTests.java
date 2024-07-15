@@ -19,9 +19,9 @@ class IntegrationTestsApplicationTests {
 
 	@Test
 	public void createUser_getUserReturnsCreatedUser() {
-		userServiceClient.createUser(new UserRequestDTO("test", "test", "test",
+		int id = userServiceClient.createUser(new UserRequestDTO("test", "test", "test",
 				"password", "test@test.com", 123456789));
-		Assertions.assertDoesNotThrow(() -> userServiceClient.getUser("1"));
+		Assertions.assertDoesNotThrow(() -> userServiceClient.getUser(Integer.toString(id)));
 	}
 
 
