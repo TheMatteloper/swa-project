@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class IntegrationTestsApplicationTests {
+class UserServiceClientTest {
 
 	@Autowired
 	private UserServiceClient userServiceClient;
