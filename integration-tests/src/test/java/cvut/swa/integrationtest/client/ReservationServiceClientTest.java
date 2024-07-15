@@ -1,5 +1,6 @@
 package cvut.swa.integrationtest.client;
 
+import cvut.swa.integrationtest.dto.UserRequestDTO;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import cvut.swa.integrationtest.dto.ReservationRequestDTO;
 import cvut.swa.integrationtest.dto.ReservationResponseDTO;
@@ -23,11 +24,21 @@ class ReservationServiceClientTest {
     @Autowired
     private ReservationServiceClient reservationServiceClient;
 
-    private static final Integer userId = 1;
+    @Autowired
+    private UserServiceClient userServiceClient;
+
+    private static Integer userId;
     private static final Integer numberOfInstances = 5;
 
     @Test
     @Order(1)
+    public void initUser() {
+        userId = userServiceClient.createUser(new UserRequestDTO("username" + Generator.randomInt(),
+                "test1", "test1", "password1", "test@test.com", 123456789));
+    }
+
+    @Test
+    @Order(2)
     void createNewReservations() {
         // Arrange
         List<ReservationRequestDTO> reservations = Generator.generateListOfReservationRequestDTOForUser(userId,
@@ -39,7 +50,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getOwnedReservations() {
         // Act
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
@@ -53,7 +64,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getReservationById() {
         // Arrange
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);
@@ -68,7 +79,7 @@ class ReservationServiceClientTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void cancelReservation() {
         // Arrange
         List<ReservationViewDTO> result = reservationServiceClient.getOwnedReservations(userId);

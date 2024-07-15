@@ -4,8 +4,7 @@ package cvut.swa.integrationtest.environment;
 import cvut.swa.integrationtest.dto.ReservationRequestDTO;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,12 +17,8 @@ public class Generator {
         return RAND.nextInt();
     }
 
-    public static LocalDate randomFutureDate() {
-        return LocalDate.now().plusDays(1 + RAND.nextLong(1000));
-    }
-
-    public static LocalTime randomTime() {
-        return LocalTime.of(RAND.nextInt(22), RAND.nextInt(59));
+    public static LocalDateTime randomFutureDate() {
+        return LocalDateTime.now().plusDays(RAND.nextInt(20));
     }
 
     public static ReservationStatus randomStatus() {
@@ -32,22 +27,15 @@ public class Generator {
 
     public static ReservationRequestDTO generateReservationRequestDTOForUser(Integer userId) {
         final ReservationRequestDTO reservationRequestDTO = new ReservationRequestDTO();
-        LocalTime time = randomTime();
+        LocalDateTime time = randomFutureDate();
 
         reservationRequestDTO.setUserId(userId);
-        reservationRequestDTO.setDate(randomFutureDate());
+        reservationRequestDTO.setRoomId(randomInt());
         reservationRequestDTO.setTimeFrom(time);
         reservationRequestDTO.setTimeTo(time.plusHours(1));
         reservationRequestDTO.setStatus(randomStatus());
 
         return reservationRequestDTO;
-    }
-
-    public static ReservationRequestDTO generateUnpaidReservationRequestDTOForUser(Integer userId) {
-        final ReservationRequestDTO reservation = generateReservationRequestDTOForUser(userId);
-        reservation.setStatus(ReservationStatus.UNPAID);
-
-        return reservation;
     }
 
     public static List<ReservationRequestDTO> generateListOfReservationRequestDTOForUser(Integer userId,

@@ -1,12 +1,12 @@
 package cvut.swa.integrationtest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import cvut.swa.integrationtest.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,11 +17,11 @@ public class ReservationRequestDTO {
 
     private Integer roomId;
 
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.AAA'Z'")
+    private LocalDateTime timeFrom;
 
-    private LocalTime timeFrom;
-
-    private LocalTime timeTo;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.AAA'Z'")
+    private LocalDateTime timeTo;
 
     private ReservationStatus status;
 
