@@ -1,0 +1,42 @@
+@startuml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include DEVICONS/postgresql.puml
+!include DEVICONS/java.puml
+!include FONTAWESOME/book.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for parking space reservation system
+
+AddElementTag(testContainer, $bgColor ="yellow", $fontColor ="black")
+AddElementTag(db, $bgColor ="#ffbfbd ", $shape=RoundedBoxShape(), $fontColor ="black")
+AddElementTag(register, $bgColor ="lightblue", $shape=EightSidedShape(), $fontColor ="gray")
+
+
+Person(User, "User", "A user of system")
+
+System_Boundary(api, "Reservation system") {
+    Container(reservation_service, "Reservation service", "Spring, Java 17", "Allows users to reserve parking place", $sprite="java")
+    Container(user_service, "User service", "Spring, Java 17", "Provides login and info about users")
+    Container(service_discovery, "Service discovery", "Eureka", "Provides functionality to register and locate services.", $tags="register")
+    Container(mail_service, "Mail service", "Spring, Java 17", "A mail service.")
+
+    ContainerDb(usDB, "Database user service", "PostgreSQL", "", $tags="db")
+    ContainerDb(rsDB, "Database reservation service", "PostgreSQL", "", $tags="db")
+
+
+
+    Rel(reservation_service, rsDB, "Read & write to", "JDBC")
+    Rel(user_service, usDB, "Read & write to", "JDBC")
+    Rel(reservation_service, user_service, "Uses", "JSON/HTTPS")
+    Rel(reservation_service, mail_service, "Uses", "JSON/HTTPS")
+    Rel(reservation_service, service_discovery, "Register/Locate service")
+    Rel(user_service, service_discovery, "Register/Locate service")
+    Rel(mail_service, service_discovery, "Register/Locate service")
+}
+
+Rel(User, user_service, "Use")
+Rel(User, reservation_service, "Use")
+@enduml
