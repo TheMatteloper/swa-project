@@ -8,7 +8,7 @@ This is a semester project for SWA(2024), built as a set of microservices for re
 - **reservation-service**: Lets users reserve rooms.
 - **mail-service**: Sends emails (like registration confirmations).
 - **service-discovery**: Eureka for finding services.
-- **integration-tests**: Automated tests for the whole system.
+- **root**: Build of whole system and automated tests for it.
 - **doc**: Diagrams and notes.
 
 ## Architecture
@@ -20,8 +20,10 @@ See [doc/diagram.png](doc/diagram.png) for a quick overview.
 
 ## CI/CD
 
-We use GitLab CI/CD for automated builds and tests.  
+This project was devoloped with GitLab CI/CD for automated builds and tests.  
 Each push triggers pipelines that build, test, and (optionally) deploy the services using the `.gitlab-ci.yml` files in each service folder.
+
+Of course, nowadays on Github this pipeline is not working.
 
 ## How to run
 
@@ -53,6 +55,7 @@ cd root-repo/integration-tests
 ## Notes
 
 - This is a prototype, not production-ready.
+- This project is moved from CTU FEE gitlab.
 
 ---
 
