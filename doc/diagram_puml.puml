@@ -1,0 +1,37 @@
+!include FONTAWESOME/book.puml
+
+LAYOUT_TOP_DOWN()
+
+title Component diagram for room reservation system
+
+AddElementTag(testContainer, $bgColor ="yellow", $fontColor ="black")
+AddElementTag(db, $bgColor ="#ffbfbd ", $shape=RoundedBoxShape(), $fontColor ="black")
+AddElementTag(register, $bgColor ="lightblue", $shape=EightSidedShape(), $fontColor ="gray")
+
+
+Person(User, "User", "A user of system")
+
+System_Boundary(api, "Reservation system") {
+    Container(reservation_service, "Reservation service", "Spring, Java 17", "Allows users to reserve room", $sprite="java")
+    Container(user_service, "User service", "Spring, Java 17", "Provides registration and info about users")
+    Container(service_discovery, "Service discovery", "Eureka", "Provides functionality to register and locate services.", $tags="register")
+    Container(mail_service, "Mail service", "Spring, Java 17", "Provide functionality to send mails.")
+
+    ContainerDb(usDB, "Database user service", "PostgreSQL", "", $tags="db")
+    ContainerDb(rsDB, "Database reservation service", "PostgreSQL", "", $tags="db")
+
+
+
+    Rel(reservation_service, rsDB, "Read & write to", "JDBC")
+    Rel(user_service, usDB, "Read & write to", "JDBC")
+    Rel(reservation_service, user_service, "Retrieves user information or exception user not exists", "HTTP")
+    Rel(reservation_service, mail_service, "Send reservation email", "HTTP")
+    Rel(user_service, mail_service, "Send registration email", "HTTP")
+    Rel(reservation_service, service_discovery, "Register/Locate service")
+    Rel(user_service, service_discovery, "Register/Locate service")
+    Rel(mail_service, service_discovery, "Register service")
+}
+
+Rel(User, user_service, "Uses for registration", "HTTP")
+Rel(User, reservation_service, "Uses for reservation", "HTTP")
+@enduml

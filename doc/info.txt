@@ -1,0 +1,33 @@
+Rezervace místností místa
+userService
+email - https://gitlab.fel.cvut.cz/bursifil/swa-semestral-project-email-service
+rezervace
+eureka - service discovery
+
+
+
+Nápady
+location - from city name, external API
+https://gitlab.fel.cvut.cz/barysole/swa-root
+https://gitlab.fel.cvut.cz/ciprape1/swa-sp
+plantUML https://www.plantuml.com/plantuml/uml/hPDlR_es4CUVvrMusJI1L8YcRPeq2QdyoTPM51Y1LNk4Bl4bU3XsPZimDEszpoQGGifKjFxwfF7vxlEz-_fuq0QKANFktL5CcK0o2dzx6aud4LaRK-YVWa31hfinioxZKgDAf30eJ3UHUM3A0gZwBYWu2CVeC7lRIMr6HnUA6TH13jgW2YXktPskLNwUJXRzrp2QleHVLEWGWnrgcMFd1--EYOIN56_GgDdQKCxYOFXzP-P2ovVn4Mv3gw6j02PGTGkRM_Dhru92QfCfr7_o_yhu0xRGk3jp8uYbt5JNthZ_-tIvMBq-BHvNu_2NS39gjJtFCCEH36LUI8724CeWKv2JL2fIWDemaH5TG894eKQr1SEa87gl3UQUrwSqv9ZRmWLaBOFQr2FTaw_ZR2YvvVJyFN8kTxwDEKjFqPX3il7R3GgDBqg_IjCuZIbnnNeD1VRciXGKwK3-5RbpgtqJLc76j6dqnLcsDZ4lyOqUkb34hC1rkdLdR-6UDqEbfMWjjMFwxf-5-7tYLe78zEYHIuqENwk1wnlKlWK5ivdpXfykb_pj4VjNczWwCttblbY2pT8gwhIZGZ6HtPDds0BvziT3EyvtVUX94oD9nSFwQGlhrM7uQlDxljidlztemfMVoRjPFz2TARbb53NXCcE2WA24YLGIY6LfgdRUgHo9Ayfq8hUezWvTnKWTS_2mLBY12vcq58cp0pWpUpVewRaFqbmcOF3KikwwWGrakkUVqjuramFZPoE_sED7LfFyBAbhYPV8KMnz70rivWWCnA2Hb0qZPzNFFVfrx4vlNTBOqfemrO2ThShDJA_gSOxy-gOTDUO8b7n3Tcv5Y94Ez3mQ32tWMDtOaFBMigkYxxTD7qgZwIHuN2ncqKS0zmwV0bpRnFbnKuBnnJ8rFVWamxN-Vnd_U9v3B6taYeasu-owCVP5rWCAMkRyNm00
+
+Požadavky konzultace Frajták
+3 - 4 micro services
+základní logika rezervací, spiíš prototyp
+zaměřiti se na body z pdf než na logiku
+min 20b
+prezentace ukázka, body z pdf
+
+Otázky/vysvětlivky bodování
+1.2 build jar -> run tests -> build docker image OK
+5.1 jar -> tests -> docker img, CI pipeline OK
+6. bez práce, NE session OK
+7. nastavení portů na docker image OK
+9. jako https://gitlab.fel.cvut.cz/barysole/swa-root OK
+14. jenom component diagram OK
+
+Odevzdání - napsat mail, přes teams
+
+
+

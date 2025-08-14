@@ -1,0 +1,15 @@
+reservation-service
+
+místo Swagger2(class SwaggerConfig) bych spíš použil openAPI dokumentaci SpringDoc https://www.baeldung.com/spring-rest-openapi-documentation
+ale jestli to funguje stejně tak ok, (stačí přidat jednu dependecy)
+
+asi bych změnil @GeneratedValue(strategy = GenerationType.IDENTITY) na GenerationType.SEQUENCE
+
+když REST API něco přijímá nebo posílá zpět je potřeba vždy použít DTO, Response/RequestDTO
+typicky třeba když vytváříš rezervaci tak endpoint nemůže přijímat Reservation POJO, protože nevíš id 
+
+napsat pár testů, stačí jednoduše
+
+call user-service zda user existuje a získat údaje o něm, nejspíš při vytváření rezervace
+
+pak call na mail service(jenom Mock), součást úspěšně vytvořené rezervace
